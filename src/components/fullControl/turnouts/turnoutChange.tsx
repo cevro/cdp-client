@@ -8,16 +8,16 @@ import {changeTurnout} from '@app/actions/messages';
 import {TurnoutState} from '@definitions/interfaces';
 import {RequestedTurnoutPosition} from '@definitions/turnouts';
 
-interface State {
-    onChangeTurnout?(state: RequestedTurnoutPosition): void;
+interface DispatchProps {
+    onChangeTurnout(state: RequestedTurnoutPosition): void;
 }
 
-interface Props {
+interface OwnProps {
     turnoutState?: TurnoutState;
     locoNetId: number
 }
 
-class TurnoutChange extends React.Component<State & Props, {}> {
+class TurnoutChange extends React.Component<DispatchProps & OwnProps, {}> {
     public render() {
         const {turnoutState} = this.props;
         const buttons = [];
@@ -41,13 +41,10 @@ class TurnoutChange extends React.Component<State & Props, {}> {
 
 }
 
-const mapStateToProps = (): State => {
-    return {};
-};
-const mapDispatchToProps = (dispatch: Dispatch<Action<string>>, ownProps: Props): State => {
+const mapDispatchToProps = (dispatch: Dispatch<Action<string>>, ownProps: OwnProps): DispatchProps => {
     return {
         onChangeTurnout: (state: RequestedTurnoutPosition) => changeTurnout(dispatch, ownProps.locoNetId, state),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TurnoutChange);
+export default connect(null, mapDispatchToProps)(TurnoutChange);

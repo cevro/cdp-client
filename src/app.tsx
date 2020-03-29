@@ -1,15 +1,15 @@
 import * as React from 'react';
-import MessageBox from './components/MessageBox/MessageBox';
+import MessageBox from './components/MessageBox/messageBox';
 import Options from './components/Options/options';
-import RouteBuilderMessageBox from './components/MessageBox/RouteBuilderMessageBox';
-import SectorsPreview from './components/MessageBox/SectorsPreview';
-import PointsPreview from './components/MessageBox/PointsPreview';
+import RouteBuilderMessageBox from './components/MessageBox/routeBuilderMessageBox';
+import SectorsPreview from './components/MessageBox/sectorsPreview';
+import PointsPreview from './components/MessageBox/pointsPreview';
 import Card from './components/helpers/Card';
 import Routes from './components/MessageBox/Routes';
 import ContextMenu from './components/Scheme/parts/signals/contextMenu/contextMenu';
 import {frontEndScheme} from './schemes/';
 import Scheme from './components/Scheme';
-import ABSectorsPreview from './components/MessageBox/ABSector/Index';
+import ABSectorsPreview from './components/MessageBox/ABSector';
 
 interface Props {
     accessKey: string;

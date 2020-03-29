@@ -1,30 +1,24 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {Store} from '@app/reducers';
-import {SignalsState} from '@app/reducers/objectState';
+import {MapObjectState} from '@app/reducers/objectState';
 import Row from './row';
-import {SignalTypeDefinition} from '@definitions/signals/interfaces';
+import {SignalState, SignalTypeDefinition} from '@definitions/signals/interfaces';
 import {getAllSignals} from '@app/consts/signals/';
 import {ENTITY_SIGNAL} from "@definitions/entity";
 
-interface State {
-    signalsState?: SignalsState;
+interface StateProps {
+    signalsState: MapObjectState<SignalState>;
 }
 
-class SignalsTable extends React.Component<State, {}> {
+class SignalsTable extends React.Component<StateProps, {}> {
     public render() {
         const {signalsState} = this.props;
         return (
-            <div className="container">
-                <table className="table table-hover table-striped table-dark">
-                    <tbody>
-                    {this.getSignals().map((signalDef, index) => {
-                        return <tr key={index}>
-                            <Row signalDef={signalDef} signalState={signalsState[signalDef.locoNetId]}/>
-                        </tr>
-                    })}
-                    </tbody>
-                </table>
+            <div className="row">
+                {this.getSignals().map((signalDef, index) => {
+                    return <Row key={index} signalDef={signalDef} signalState={signalsState[signalDef.locoNetId]}/>;
+                })}
             </div>
         );
     }
@@ -34,13 +28,10 @@ class SignalsTable extends React.Component<State, {}> {
     }
 }
 
-const mapStateToProps = (state: Store): State => {
+const mapStateToProps = (state: Store): StateProps => {
     return {
         signalsState: state.objectState[ENTITY_SIGNAL],
     };
 };
-const mapDispatchToProps = (): State => {
-    return {};
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignalsTable);
+export default connect(mapStateToProps, null)(SignalsTable);

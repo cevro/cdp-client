@@ -1,10 +1,10 @@
 import * as React from 'react';
-import {TurnoutSchemeDefinition} from '@definitions/turnouts';
+import {TurnoutDefinition} from '@definitions/turnouts';
 import TurnoutChange from './turnoutChange';
 import {TurnoutState} from "@app/consts/interfaces";
 
 interface Props {
-    turnoutDef: TurnoutSchemeDefinition;
+    turnoutDef: TurnoutDefinition;
     turnoutState: TurnoutState;
 }
 
@@ -37,43 +37,43 @@ export default class Row extends React.Component<Props, {}> {
         </tr>;
     }
 
-    public getTurnoutIcon(): JSX.Element {
-        const {
-            turnoutState,
-            turnoutDef: {
-                home,
-                SVGData: {x, y, rotate, dir},
-            },
-        } = this.props;
-        const position = turnoutState ? turnoutState.position : undefined;
-        const requestedState = turnoutState ? turnoutState.requestedPosition : undefined;
-        const locked = turnoutState ? turnoutState.locked : [];
-        return (
-            <g className={'point ' + this.getStateClassName(position, !!locked.length, (requestedState !== position))}
-               transform={'translate(' + x + ',' + y + ')'}>
-                <g transform={'rotate(' + rotate + ')'}>
-                    <polygon points={'0,-10 10,-10 10,10 0,10'} fill="black"/>
-                    {(!position || (position === home)) ? <line x1={0} x2={10} y1={0} y2={0}/> : null}
-                    {(!position || (position !== home)) ?
-                        <line x1={0} x2={10} y1={0} y2={(dir === 'L') ? (-6) : (6)}/> : null}
+    /*  public getTurnoutIcon(): JSX.Element {
+          const {
+              turnoutState,
+              turnoutDef: {
+                  home,
+                  SVGData: {x, y, rotate, dir},
+              },
+          } = this.props;
+          const position = turnoutState ? turnoutState.position : undefined;
+          const requestedState = turnoutState ? turnoutState.requestedPosition : undefined;
+          const locked = turnoutState ? turnoutState.locked : [];
+          return (
+              <g className={'point ' + this.getStateClassName(position, !!locked.length, (requestedState !== position))}
+                 transform={'translate(' + x + ',' + y + ')'}>
+                  <g transform={'rotate(' + rotate + ')'}>
+                      <polygon points={'0,-10 10,-10 10,10 0,10'} fill="black"/>
+                      {(!position || (position === home)) ? <line x1={0} x2={10} y1={0} y2={0}/> : null}
+                      {(!position || (position !== home)) ?
+                          <line x1={0} x2={10} y1={0} y2={(dir === 'L') ? (-6) : (6)}/> : null}
 
-                </g>
-            </g>
-        );
-    }
-
-    private getStateClassName(state: number | null, lock: boolean, changing: boolean): string {
-        if (changing) {
-            return 'changing';
-        }
-        if (!state) {
-            return 'undefined';
-        }
-        if (lock) {
-            return 'locked';
-        }
-        return 'not-locked';
-    }
+                  </g>
+              </g>
+          );
+      }*/
+    /*
+        private getStateClassName(state: number | null, lock: boolean, changing: boolean): string {
+            if (changing) {
+                return 'changing';
+            }
+            if (!state) {
+                return 'undefined';
+            }
+            if (lock) {
+                return 'locked';
+            }
+            return 'not-locked';
+        }*/
 
     // <span className="col-3">name: {signalDef.name}</span>
     //                     <span className="col-3">conf: {signalDef.lights.join(' ')}</span>

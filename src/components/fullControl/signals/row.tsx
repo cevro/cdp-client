@@ -15,13 +15,11 @@ export default class Row extends React.Component<Props, {}> {
         const {signalDef, signalState} = this.props;
         const displayState = signalState ? signalState.displayAspect : undefined;
         const requestedState = signalState ? signalState.requestedAspect : undefined;
-        return <>
-            <td>
-                <div className="col-12 text-center">
-                    <h1>
-                        <span className={'badge signal-badge-' + signalDef.type}>{signalDef.name}</span>
-                    </h1>
-                </div>
+        return <div className="col-12 row">
+            <div className="col-lg-10">
+                <h1 className="col-12 text-center">
+                    <span className={'badge signal-badge-' + signalDef.type}>{signalDef.name}</span>
+                </h1>
                 <hr/>
                 <div className="col-12 row">
                     <span className="col-3">locoNetId: {signalDef.locoNetId}</span>
@@ -40,11 +38,11 @@ export default class Row extends React.Component<Props, {}> {
                                 signalState={signalState}/>
                         </span>
                 </div>
-            </td>
-            <td>
+            </div>
+            <div className="col-lg-2">
                 <Icon signal={signalDef} state={displayState}/>
-            </td>
-        </>;
+            </div>
+        </div>;
     }
 }
 

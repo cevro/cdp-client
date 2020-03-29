@@ -8,7 +8,7 @@ import {
 import {app} from './reducers/';
 import Router from './router';
 import * as ReactDOM from 'react-dom';
-import Downloader from '@app/components/helpers/Downloader';
+import Downloader from '@app/components/helpers/downloader';
 import Menu from '@app/menu';
 
 class Main extends React.Component<{}, {}> {

@@ -37,7 +37,7 @@ export const clearSelect = (): Action<string> => {
 };
 
 export const findRoute = (dispatch: Dispatch<Action<string>>, startSignalId: number, endSectorId: number) => {
-    return dispatch(onSendMessage<Message<RouteFinderRequest>>({
+    return dispatch(onSendMessage<RouteFinderRequest>({
         method: 'get',
         uri: 'route',
         data: {

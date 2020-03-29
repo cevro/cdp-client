@@ -10,7 +10,7 @@ import {ENTITY_AB_SECTOR} from '@definitions/entity';
 
 export const changeABCondition =
     (dispatch: Dispatch<Action<string>>, locoNetId: number, state: number):
-        ActionMessageSend<any> => {
+        ActionMessageSend => {
         return dispatch(onSendMessage({
             method: 'patch',
             uri: ENTITY_AB_SECTOR + '/' + locoNetId,
@@ -20,7 +20,7 @@ export const changeABCondition =
 
 export const removeABError =
     (dispatch: Dispatch<Action<string>>, locoNetId: number):
-        ActionMessageSend<any> => {
+        ActionMessageSend=> {
         return dispatch(onSendMessage({
             method: 'patch',
             uri: ENTITY_AB_SECTOR + '/' + locoNetId,

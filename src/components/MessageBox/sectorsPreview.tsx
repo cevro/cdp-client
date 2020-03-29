@@ -5,10 +5,11 @@ import {
     Action,
     Dispatch,
 } from 'redux';
-import {SectorsState} from '@app/reducers/objectState';
+import {MapObjectState} from '@app/reducers/objectState';
 import {changeSector} from '@app/actions/messages';
 import {SectorDefinition} from '@definitions/sectors';
 import {ENTITY_SECTOR} from "@definitions/entity";
+import {SectorState} from "@app/consts/interfaces";
 
 interface OwnProps {
     sectors: SectorDefinition[];
@@ -19,7 +20,7 @@ interface DispatchProps {
 }
 
 interface StateProps {
-    sectorsState: SectorsState;
+    sectorsState: MapObjectState<SectorState>;
 }
 
 export const SECTOR_STATE_OCCUPIED = 2;

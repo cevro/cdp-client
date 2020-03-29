@@ -1,12 +1,11 @@
 import {SignalTypeDefinition} from '@definitions/signals/interfaces';
-import {getAllTurnouts, TurnoutSchemeDefinition} from '@definitions/turnouts';
+import {TurnoutSchemeDefinition} from '@definitions/turnouts';
 import {
     autoBlockPuLpM,
     AutoBlockSectorFrontEndDefinition,
 } from './linePuLpM';
 import {SectorDefinition, sectors} from '@definitions/sectors';
-import {signals} from "@app/schemes/zstPu";
-import turnouts from "@app/consts/objects/zst/pu/turnouts";
+import {signals, turnouts} from "@app/schemes/zstPu";
 
 export interface SignalSchemeDefinition extends SignalTypeDefinition {
     SVGData: {
@@ -64,7 +63,7 @@ export const frontEndScheme: frontEndScheme = {
             sectors: sectors,
             signals: signals,
             // @ts-ignore
-            turnouts: getAllTurnouts(),
+            turnouts: turnouts,
             ABSectors: [],
             biDirAB: [],
         },

@@ -11,28 +11,30 @@ import {
     removeABError,
 } from '@app/actions/messages/ABSector';
 import {connect} from 'react-redux';
-import {ABSectorsState} from '@app/reducers/objectState';
+import { MapObjectState} from '@app/reducers/objectState';
 import {ENTITY_AB_SECTOR} from "@definitions/entity";
 
-interface Props {
+interface OwnProps {
     definition: AutoBlockSectorFrontEndDefinition;
     objectState: ABSectorState;
     displayOnlyInterest: boolean;
 }
 
-interface State {
-    ABSectorsState?: ABSectorsState;
-
-    onChangeABCondition?(state: number): void;
-
-    onRemoveABError?(): void;
+interface StateProps {
+    ABSectorsState: MapObjectState<ABSectorState>;
 }
 
-interface InnerState {
+interface DispatchProps {
+    onChangeABCondition(state: number): void;
+
+    onRemoveABError(): void;
+}
+
+interface State {
     display: boolean;
 }
 
-class Row extends React.Component<Props & State, InnerState> {
+class Row extends React.Component<OwnProps & StateProps & DispatchProps, State> {
     constructor(props) {
         super(props);
         this.state = {display: false};
@@ -175,12 +177,12 @@ class Row extends React.Component<Props & State, InnerState> {
     }
 }
 
-const mapStateToProps = (state: Store): State => {
+const mapStateToProps = (state: Store): StateProps => {
     return {
         ABSectorsState: state.objectState[ENTITY_AB_SECTOR],
     };
 };
-const mapDispatchToProps = (dispatch: Dispatch<Action<string>>, ownProps: Props): State => {
+const mapDispatchToProps = (dispatch: Dispatch<Action<string>>, ownProps: OwnProps): DispatchProps => {
     return {
         onChangeABCondition: (state) => changeABCondition(dispatch, ownProps.definition.locoNetId, state),
         onRemoveABError: () => removeABError(dispatch, ownProps.definition.locoNetId),

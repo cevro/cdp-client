@@ -7,20 +7,24 @@ import {
 } from '@app/actions/webSocets';
 import {Store} from '@app/reducers';
 import {Message} from '@definitions/messages';
+import {Dispatch, Action} from "redux";
 
-interface State {
-    messagesToSend?: {
+interface StateProps {
+    messagesToSend: {
         [key: number]: Message;
     };
-
-    onMessage?(data: Message<any>): void;
-
-    onConnectionClose?(): void;
-
-    onSuccessSend?(id: string): void;
 }
 
-class Downloader extends React.Component<State, {}> {
+interface DispatchProps {
+
+    onMessage(data: Message): void;
+
+    onConnectionClose(): void;
+
+    onSuccessSend(id: string): void;
+}
+
+class Downloader extends React.Component<StateProps & DispatchProps, {}> {
     private ws: WebSocket;
 
     public componentDidMount() {
@@ -63,7 +67,7 @@ class Downloader extends React.Component<State, {}> {
     }
 
     private connect() {
-         const wsServer = window.location.hostname;
+        const wsServer = window.location.hostname;
         // const wsServer = '192.168.1.144';
         const url = 'ws://' + wsServer + ':8081/';
         this.ws = new WebSocket(url, 'echo-protocol');
@@ -92,14 +96,15 @@ class Downloader extends React.Component<State, {}> {
     }
 }
 
-const mapDispatchToProps = (dispatch): State => {
+const mapDispatchToProps = (dispatch: Dispatch<Action<string>>): DispatchProps => {
     return {
         onMessage: (data) => dispatch(onMessageRetrieve(data)),
         onConnectionClose: () => dispatch(connectionClose()),
         onSuccessSend: (id) => dispatch(successSend(id)),
     };
 };
-const mapStateToProps = (store: Store): State => {
+
+const mapStateToProps = (store: Store): StateProps => {
     return {
         messagesToSend: store.webSocket.messages,
     };

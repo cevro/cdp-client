@@ -6,7 +6,7 @@ import {sectorSelect} from '@app/actions/routeBuilder';
 import {
     SECTOR_STATE_FREE,
     SECTOR_STATE_OCCUPIED,
-} from '../../../MessageBox/SectorsPreview';
+} from '../../../MessageBox/sectorsPreview';
 import {SectorDefinition} from "@definitions/sectors";
 import {SectorState} from '@definitions/interfaces';
 

@@ -8,16 +8,16 @@ import {changeSignal} from '@app/actions/messages';
 import {signalStateMapping} from '@app/middleware/signal';
 import {SignalState} from "@app/consts/signals/interfaces";
 
-interface State {
-    onChangeSignal?(state: number): void;
+interface StateProps {
+    onChangeSignal(state: number): void;
 }
 
-interface Props {
+interface OwnProps {
     signalState?: SignalState;
     locoNetId: number
 }
 
-class SignalChange extends React.Component<State & Props, {}> {
+class SignalChange extends React.Component<StateProps & OwnProps, {}> {
     public render() {
         const {signalState} = this.props;
         return (
@@ -35,13 +35,10 @@ class SignalChange extends React.Component<State & Props, {}> {
 
 }
 
-const mapStateToProps = (): State => {
-    return {};
-};
-const mapDispatchToProps = (dispatch: Dispatch<Action<string>>, ownProps: Props): State => {
+const mapDispatchToProps = (dispatch: Dispatch<Action<string>>, ownProps: OwnProps): StateProps => {
     return {
         onChangeSignal: (state) => changeSignal(dispatch, ownProps.locoNetId, state),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignalChange);
+export default connect(null, mapDispatchToProps)(SignalChange);

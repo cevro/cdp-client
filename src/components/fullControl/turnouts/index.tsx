@@ -1,17 +1,17 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {Store} from '@app/reducers';
-import {TurnoutsState} from '@app/reducers/objectState';
-import {autoBlockPuLpM} from '@app/schemes/linePuLpM';
+import {MapObjectState} from '@app/reducers/objectState';
 import Row from './row';
-import {TurnoutSchemeDefinition,} from '@definitions/turnouts/';
+import {getAllTurnouts, TurnoutDefinition} from '@definitions/turnouts/';
 import {ENTITY_TURNOUT} from "@definitions/entity";
+import {TurnoutState} from "@app/consts/interfaces";
 
-interface State {
-    turnoutsState?: TurnoutsState;
+interface StateProps {
+    turnoutsState: MapObjectState<TurnoutState>;
 }
 
-class TurnoutsTable extends React.Component<State, {}> {
+class TurnoutsTable extends React.Component<StateProps, {}> {
     public render() {
         const {turnoutsState} = this.props;
         return (
@@ -29,12 +29,12 @@ class TurnoutsTable extends React.Component<State, {}> {
         );
     }
 
-    private getTurnouts(): TurnoutSchemeDefinition[] {
-        return [...autoBlockPuLpM.objects.turnouts/*, ...getAllTurnouts()*/];
+    private getTurnouts(): TurnoutDefinition[] {
+        return [...getAllTurnouts()];
     }
 }
 
-const mapStateToProps = (state: Store): State => {
+const mapStateToProps = (state: Store): StateProps => {
     return {
         turnoutsState: state.objectState[ENTITY_TURNOUT],
     };

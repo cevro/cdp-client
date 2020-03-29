@@ -4,7 +4,7 @@ import {
 } from '../actions/webSocets';
 import {Message} from '@definitions/messages';
 
-const messageRetrieve = (state, action: ActionMessageRetrieve<Message<any>>) => {
+const messageRetrieve = (state, action: ActionMessageRetrieve) => {
     const newMessages = [action.message, ...state];
     if (newMessages.length > 20) {
         newMessages.pop();

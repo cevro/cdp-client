@@ -5,21 +5,24 @@ import {
     Action,
     Dispatch,
 } from 'redux';
-import {TurnoutsState} from '@app/reducers/objectState';
+import {MapObjectState} from '@app/reducers/objectState';
 import {
     TurnoutPosition,
     RequestedTurnoutPosition, getAllTurnouts,
 } from '@definitions/turnouts';
 import {changeTurnout} from '@app/actions/messages';
 import {ENTITY_TURNOUT} from "@definitions/entity";
+import {TurnoutState} from "@app/consts/interfaces";
 
-interface State {
-    turnoutsState?: TurnoutsState;
-
-    onChangeTurnout?(id: number, state: RequestedTurnoutPosition): void;
+interface StateProps {
+    turnoutsState: MapObjectState<TurnoutState>;
 }
 
-class TurnoutPreview extends React.Component<State, {}> {
+interface DispatchProps {
+    onChangeTurnout(id: number, state: RequestedTurnoutPosition): void;
+}
+
+class TurnoutPreview extends React.Component<StateProps & DispatchProps, {}> {
     public render() {
         const {turnoutsState: pointsState} = this.props;
 
@@ -91,12 +94,12 @@ class TurnoutPreview extends React.Component<State, {}> {
     }
 }
 
-const mapStateToProps = (state: Store): State => {
+const mapStateToProps = (state: Store): StateProps => {
     return {
         turnoutsState: state.objectState[ENTITY_TURNOUT],
     };
 };
-const mapDispatchToProps = (dispatch: Dispatch<Action<string>>): State => {
+const mapDispatchToProps = (dispatch: Dispatch<Action<string>>): DispatchProps => {
     return {
         onChangeTurnout: (id: number, state: RequestedTurnoutPosition) => changeTurnout(dispatch, id, state),
     };

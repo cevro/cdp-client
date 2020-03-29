@@ -1,5 +1,7 @@
 import {SignalSchemeDefinition} from "@app/schemes";
 import {getSignalDefinition} from "@app/consts/signals/";
+import {getTurnoutDefinition, TurnoutSchemeDefinition} from "@app/consts/turnouts";
+import {TurnoutState} from "@app/consts/interfaces";
 
 const entrySignals: SignalSchemeDefinition[] = [
     {
@@ -302,6 +304,202 @@ const signalAutoblokPB: SignalSchemeDefinition[] = [
     {
         ...getSignalDefinition('zst.pu.2-1603'),
         SVGData: {rotate: 0, x: -200, y: 30},
+    },
+];
+
+export const turnouts: TurnoutSchemeDefinition[] = [
+    {
+        ...getTurnoutDefinition('zst.pu.1'),
+        SVGData: {x: 125, y: 60, rotate: 0, dir: 'L'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.2'),
+        SVGData: {x: 150, y: 0, rotate: 0, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.3'),
+        SVGData: {x: 175, y: 30, rotate: 180, dir: 'L'},
+    },
+
+    {
+        ...getTurnoutDefinition('zst.pu.4'),
+        SVGData: {x: 200, y: 30, rotate: 180, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.5'),
+        SVGData: {x: 225, y: 30, rotate: 0, dir: 'L'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.6'),
+        SVGData: {x: 275, y: 30, rotate: 0, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.7'),
+        SVGData: {x: 275, y: 0, rotate: 180, dir: 'L'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.8'),
+        SVGData: {x: 325, y: 60, rotate: 180, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.9'),
+        SVGData: {x: 350, y: 0, rotate: 0, dir: 'L'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.10'),
+        SVGData: {x: 375, y: 60, rotate: 0, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.11'),
+        SVGData: {x: 400, y: 30, rotate: 0, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.12'),
+        SVGData: {x: 575, y: 180, rotate: 26.23, dir: 'L'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.13'),
+        SVGData: {x: 400, y: -30, rotate: -26.23, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.14a'),
+        SVGData: {x: 450, y: 60, rotate: 0, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.14b'),
+        SVGData: {x: 450, y: 60, rotate: 180, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.15'),
+        SVGData: {x: 500, y: 90, rotate: 26.23, dir: 'L'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.16'),
+        SVGData: {x: 625, y: 210, rotate: 26.23, dir: 'L'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.17'),
+        SVGData: {x: 550, y: 90, rotate: 0, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.18'),
+        SVGData: {x: 675, y: 210, rotate: 0, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.21a'),
+        SVGData: {x: 1150, y: 240, rotate: 180, dir: 'L'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.21b'),
+        SVGData: {x: 1150, y: 240, rotate: 0, dir: 'L'},
+    },
+
+    {
+        ...getTurnoutDefinition('zst.pu.22'),
+        SVGData: {x: 1200, y: 210, rotate: 180, dir: 'L'},
+    },
+
+    {
+        ...getTurnoutDefinition('zst.pu.23'),
+        SVGData: {x: 1050, y: -30, rotate: 180, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.24'),
+        SVGData: {x: 1425, y: 0, rotate: 0, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.25'),
+        SVGData: {x: 1475, y: 30, rotate: 180, dir: 'P'},
+    },
+
+    {
+        ...getTurnoutDefinition('zst.pu.26'),
+        SVGData: {x: 1500, y: 30, rotate: 0, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.27'),
+        SVGData: {x: 1400, y: 180, rotate: 153.77, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.28'),
+
+        SVGData: {x: 1450, y: 150, rotate: 153.77, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.29a'),
+        SVGData: {x: 1550, y: 60, rotate: 180, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.29b'),
+        SVGData: {x: 1550, y: 60, rotate: 0, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.30'),
+        SVGData: {x: 1500, y: 120, rotate: 180, dir: 'L'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.31'),
+        SVGData: {x: 1600, y: 120, rotate: 0, dir: 'L'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.32a'),
+        SVGData: {x: 1600, y: 90, rotate: 180, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.32b'),
+        SVGData: {x: 1600, y: 90, rotate: 0, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.33'),
+        SVGData: {x: 1625, y: 0, rotate: 180, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.34a'),
+        SVGData: {x: 1650, y: 90, rotate: 180, dir: 'L'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.34b'),
+        SVGData: {x: 1650, y: 90, rotate: 0, dir: 'L'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.35a'),
+        SVGData: {x: 1650, y: 120, rotate: 180, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.35b'),
+        SVGData: {x: 1650, y: 120, rotate: 0, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.36'),
+        SVGData: {x: 1650, y: 0, rotate: 0, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.37'),
+        SVGData: {x: 1700, y: 60, rotate: 180, dir: 'L'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.38'),
+        SVGData: {x: 1750, y: 60, rotate: 0, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.40'),
+        SVGData: {x: 1775, y: 60, rotate: 0, dir: 'L'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.41'),
+        SVGData: {x: 1700, y: 30, rotate: 180, dir: 'P'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.42'),
+        SVGData: {x: 1825, y: 30, rotate: 180, dir: 'L'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.43'),
+        SVGData: {x: 1850, y: 30, rotate: 0, dir: 'L'},
+    },
+    {
+        ...getTurnoutDefinition('zst.pu.44'),
+        SVGData: {x: 1900, y: 0, rotate: 180, dir: 'L'},
     },
 ];
 

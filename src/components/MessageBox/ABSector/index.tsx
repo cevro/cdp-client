@@ -1,24 +1,25 @@
 import * as React from 'react';
-import {ABSectorsState} from '@app/reducers/objectState';
+import {MapObjectState} from '@app/reducers/objectState';
 import {AutoBlockSectorFrontEndDefinition} from '@app/schemes/linePuLpM';
 import {Store} from '@app/reducers';
 import {connect} from 'react-redux';
-import Row from "./Row";
+import Row from "./row";
 import {ENTITY_AB_SECTOR} from "@definitions/entity";
+import {ABSectorState} from "@app/consts/interfaces";
 
-interface State {
-    ABSectorsState?: ABSectorsState;
+interface StateProps {
+    ABSectorsState?: MapObjectState<ABSectorState>;
 }
 
-interface Props {
+interface OwnProps {
     ABSectors: AutoBlockSectorFrontEndDefinition[];
 }
 
-interface InnerState {
+interface State {
     displayOnlyInterest: boolean;
 }
 
-class Index extends React.Component<State & Props, InnerState> {
+class Index extends React.Component<StateProps & OwnProps, State> {
     constructor(props) {
         super(props);
         this.state = {
@@ -49,13 +50,10 @@ class Index extends React.Component<State & Props, InnerState> {
 
 }
 
-const mapStateToProps = (state: Store): State => {
+const mapStateToProps = (state: Store): StateProps => {
     return {
         ABSectorsState: state.objectState[ENTITY_AB_SECTOR],
     };
 };
-const mapDispatchToProps = (): State => {
-    return {};
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Index);
+export default connect(mapStateToProps, null)(Index);

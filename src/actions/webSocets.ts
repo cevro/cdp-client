@@ -3,11 +3,11 @@ import {Action} from 'redux';
 
 export const ACTION_MESSAGE_RETRIEVE = 'ACTION_MESSAGE_RETRIEVE';
 
-export interface ActionMessageRetrieve<M extends Message<any>> extends Action<string> {
-    message: M;
+export interface ActionMessageRetrieve<D = any> extends Action<string> {
+    message: Message<D>;
 }
 
-export function onMessageRetrieve<M extends Message<T>, T>(message: M): ActionMessageRetrieve<M> {
+export function onMessageRetrieve<D = any>(message: Message<D>): ActionMessageRetrieve<D> {
     return {
         type: ACTION_MESSAGE_RETRIEVE,
         message,
@@ -16,11 +16,11 @@ export function onMessageRetrieve<M extends Message<T>, T>(message: M): ActionMe
 
 export const ACTION_MESSAGE_SEND = 'ACTION_MESSAGE_SEND';
 
-export interface ActionMessageSend<M extends Message<any>> extends Action<string> {
-    message: M;
+export interface ActionMessageSend<D = any> extends Action<string> {
+    message: Message<D>;
 }
 
-export function onSendMessage<M extends Message<any>>(message: M): ActionMessageSend<M> {
+export function onSendMessage<D = any>(message: Message<D>): ActionMessageSend<D> {
     return {
         type: ACTION_MESSAGE_SEND,
         message,

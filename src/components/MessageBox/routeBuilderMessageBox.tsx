@@ -1,17 +1,13 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {
-    Action,
-    Dispatch,
-} from 'redux';
 import {Store} from '@app/reducers';
 import {TrainRouteDump} from '@definitions/interfaces';
 
-interface State {
-    trainRoute?: TrainRouteDump;
+interface StateProps {
+    trainRoute: TrainRouteDump;
 }
 
-class RouteBuilderMessageBox extends React.Component<State, {}> {
+class RouteBuilderMessageBox extends React.Component<StateProps, {}> {
 
     public render() {
 
@@ -59,14 +55,10 @@ class RouteBuilderMessageBox extends React.Component<State, {}> {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<Action<string>>): State => {
-    return {};
-};
-
-const mapStateToProps = (store: Store): State => {
+const mapStateToProps = (store: Store): StateProps => {
     return {
         trainRoute: store.routeBuilder.routeBuilderState,
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RouteBuilderMessageBox);
+export default connect(mapStateToProps, null)(RouteBuilderMessageBox);

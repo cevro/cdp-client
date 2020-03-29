@@ -3,9 +3,6 @@ import {
     Dispatch,
 } from 'redux';
 import {
-    Message, METHOD_TYPE,
-} from '@definitions/messages';
-import {
     ENTITY_BI_DIR_AB,
     ENTITY_SECTOR,
     ENTITY_SIGNAL,
@@ -17,23 +14,20 @@ import {
     onSendMessage,
 } from '../webSocets';
 
-export function send<T>
-(dispatch: Dispatch<Action<string>>, uri: string, method: METHOD_TYPE, data: T): ActionMessageSend<Message<T>> {
+export const changeSector = (
+    dispatch: Dispatch<Action<string>>,
+    id: number,
+    state: number
+): ActionMessageSend<{ id: number; state: number }> => {
     return dispatch(onSendMessage({
-        method,
-        uri,
-        data,
+        method: 'patch',
+        uri: ENTITY_SECTOR + '/' + id,
+        data: {id, state},
     }));
-}
-
-export const changeSector =
-    (dispatch: Dispatch<Action<string>>, id: number, state: number): ActionMessageSend<Message<{ id: number; state: number }>> => {
-        return send<{ id: number; state: number }>
-        (dispatch, ENTITY_SECTOR + '/' + id, 'patch', {id, state});
-    };
+};
 
 export const changeSignal =
-    (dispatch: Dispatch<Action<string>>, id: number, state: number): ActionMessageSend<Message<{ id: number, state: number }>> => {
+    (dispatch: Dispatch<Action<string>>, id: number, state: number): ActionMessageSend<{ id: number, state: number }> => {
         return dispatch(onSendMessage({
             method: 'patch',
             uri: ENTITY_SIGNAL + '/' + id,
@@ -41,23 +35,29 @@ export const changeSignal =
         }));
     };
 
-export const changeTurnout =
-    (dispatch: Dispatch<Action<string>>, id: number, requestedPosition: RequestedTurnoutPosition):
-        ActionMessageSend<Message<{ requestedPosition: RequestedTurnoutPosition }>> => {
-        return dispatch(onSendMessage({
-            method: 'patch',
-            uri: ENTITY_TURNOUT + '/' + id,
-            data: {
-                requestedPosition,
-            },
-        }));
-    };
+export const changeTurnout = (
+    dispatch: Dispatch<Action<string>>,
+    id: number,
+    requestedPosition: RequestedTurnoutPosition
+):
+    ActionMessageSend<{ requestedPosition: RequestedTurnoutPosition }> => {
+    return dispatch(onSendMessage({
+        method: 'patch',
+        uri: ENTITY_TURNOUT + '/' + id,
+        data: {
+            requestedPosition,
+        },
+    }));
+};
 
-export const changeABDir =
-    (dispatch: Dispatch<Action<string>>, id: number, dir: -1 | 1): ActionMessageSend<Message<{ id: number, dir: -1 | 1 }>> => {
-        return dispatch(onSendMessage({
-            method: 'patch',
-            uri: ENTITY_BI_DIR_AB + '/' + id,
-            data: {id, dir},
-        }));
-    };
+export const changeABDir = (
+    dispatch: Dispatch<Action<string>>,
+    id: number,
+    dir: RequestedTurnoutPosition
+): ActionMessageSend<{ id: number, dir: RequestedTurnoutPosition }> => {
+    return dispatch(onSendMessage({
+        method: 'patch',
+        uri: ENTITY_BI_DIR_AB + '/' + id,
+        data: {id, dir},
+    }));
+};

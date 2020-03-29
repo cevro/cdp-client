@@ -30,6 +30,7 @@ export const getSignalState = (store: Store, signalId: number): SignalState => {
 export const getSectorState = (store: Store, sectorId: number): SectorState => {
     return getObjectState(ENTITY_SECTOR, store, sectorId);
 };
+
 export const getTurnoutState = (store: Store, pointId: number): TurnoutState => {
     return getObjectState(ENTITY_TURNOUT, store, pointId);
 };
