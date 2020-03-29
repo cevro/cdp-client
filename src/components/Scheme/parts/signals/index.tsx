@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Signal from './Signal';
-import {SignalSchemeDefinition} from '@definitions/signals/interfaces';
+import Signal from './signal';
+import {SignalSchemeDefinition} from "@app/schemes";
 
 interface Props {
     signals: SignalSchemeDefinition[];
@@ -9,12 +9,10 @@ interface Props {
 export default class Signals extends React.Component<Props, {}> {
 
     public render() {
-        return (<g>
+        return (<>
             {this.props.signals.map((signal, signalId) => {
-                return <g key={signalId}>
-                    <Signal definition={signal}/>
-                </g>;
+                return <Signal key={signalId} definition={signal}/>;
             })}
-        </g>)
+        </>)
     }
 }

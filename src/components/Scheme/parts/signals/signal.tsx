@@ -10,7 +10,7 @@ import {
     Dispatch,
 } from 'redux';
 import {SignalState} from '@definitions/interfaces';
-import {SignalSchemeDefinition} from '@definitions/signals/interfaces';
+import {SignalSchemeDefinition} from "@app/schemes";
 
 interface Props {
     definition: SignalSchemeDefinition;

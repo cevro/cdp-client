@@ -9,7 +9,7 @@ import {
     Dispatch,
 } from 'redux';
 import {closeContextMenu} from '@app/actions/signalContextMenu';
-import {SignalSchemeDefinition} from '@definitions/signals/interfaces';
+import {SignalSchemeDefinition} from "@app/schemes";
 
 interface Props {
     signals: SignalSchemeDefinition[];

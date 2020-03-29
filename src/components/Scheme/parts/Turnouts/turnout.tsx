@@ -3,14 +3,14 @@ import {connect} from 'react-redux';
 import {Store} from '@app/reducers';
 import {getTurnoutState} from '@app/middleware/objectState';
 import {TurnoutSchemeDefinition} from "@definitions/points";
-import {TurnoutMessages} from "@definitions/messages/turnout";
+import {TurnoutState} from "@app/consts/interfaces";
 
 interface Props {
     definition: TurnoutSchemeDefinition;
 }
 
 interface State {
-    stateObject?: TurnoutMessages.StateUpdateData;
+    stateObject?: TurnoutState;
     displayLabel?: boolean;
 
     onTurnoutClick?(id: number): void;
