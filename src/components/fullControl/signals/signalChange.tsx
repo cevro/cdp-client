@@ -5,8 +5,8 @@ import {
     Dispatch,
 } from 'redux';
 import {changeSignal} from '@app/actions/messages';
-import {SignalState} from '@definitions/interfaces';
 import {signalStateMapping} from '@app/middleware/signal';
+import {SignalState} from "@app/consts/signals/interfaces";
 
 interface State {
     onChangeSignal?(state: number): void;

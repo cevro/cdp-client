@@ -1,12 +1,12 @@
 import * as React from 'react';
 import Turnout from './turnout';
-import {TurnoutDefinition, TurnoutSchemeDefinition} from "@definitions/points";
+import { TurnoutSchemeDefinition} from "@definitions/turnouts";
 
 interface Props {
     points: TurnoutSchemeDefinition[];
 }
 
-export default class Turnouts extends React.Component<Props, {}> {
+export default class Index extends React.Component<Props, {}> {
 
     public render() {
 

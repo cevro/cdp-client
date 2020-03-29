@@ -1,14 +1,14 @@
 import * as React from 'react';
 import MessageBox from './components/MessageBox/MessageBox';
-import Options from './components/Options/Options';
+import Options from './components/Options/options';
 import RouteBuilderMessageBox from './components/MessageBox/RouteBuilderMessageBox';
 import SectorsPreview from './components/MessageBox/SectorsPreview';
 import PointsPreview from './components/MessageBox/PointsPreview';
 import Card from './components/helpers/Card';
 import Routes from './components/MessageBox/Routes';
-import ContextMenu from './components/Scheme/Parts/Signals/ContextMenu/ContextMenu';
+import ContextMenu from './components/Scheme/parts/signals/contextMenu/contextMenu';
 import {frontEndScheme} from './schemes/';
-import Scheme from './components/Scheme/Index';
+import Scheme from './components/Scheme';
 import ABSectorsPreview from './components/MessageBox/ABSector/Index';
 
 interface Props {
@@ -37,7 +37,7 @@ export default class App extends React.Component<Props, {}> {
                         </div>}
 
                         <div className="col-3">
-                            <Card name={'AB Sectors'}>
+                            <Card name={'AB Index'}>
                                 <ABSectorsPreview ABSectors={scheme.objects.ABSectors}/>
                             </Card>
                         </div>

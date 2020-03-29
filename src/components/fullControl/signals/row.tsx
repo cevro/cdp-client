@@ -1,10 +1,9 @@
 import * as React from 'react';
 import SignalChange from './signalChange';
-import Icon from '@app/components/Scheme/Parts/Signals/ContextMenu/Icon';
+import Icon from '@app/components/Scheme/parts/signals/contextMenu/icon';
 import {signalStateMapping} from '@app/middleware/signal';
 import {signalTypes} from '@definitions/signals/signalTypes';
-import {SignalState} from '@definitions/interfaces';
-import {SignalTypeDefinition} from '@definitions/signals/interfaces';
+import {SignalState, SignalTypeDefinition} from '@definitions/signals/interfaces';
 
 interface Props {
     signalDef: SignalTypeDefinition;

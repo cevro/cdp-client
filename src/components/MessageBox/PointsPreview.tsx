@@ -8,9 +8,8 @@ import {
 import {TurnoutsState} from '@app/reducers/objectState';
 import {
     TurnoutPosition,
-    turnouts,
-    RequestedTurnoutPosition,
-} from '@definitions/points';
+    RequestedTurnoutPosition, getAllTurnouts,
+} from '@definitions/turnouts';
 import {changeTurnout} from '@app/actions/messages';
 import {ENTITY_TURNOUT} from "@definitions/entity";
 
@@ -26,7 +25,7 @@ class TurnoutPreview extends React.Component<State, {}> {
 
         return (
             <div className="list-group list-scroll">
-                {turnouts.map((sectorDef, index) => {
+                {getAllTurnouts().map((sectorDef, index) => {
                     const pointState = pointsState[sectorDef.locoNetId];
                     const state = pointState ? pointState.position : undefined;
                     const locked = pointState ? pointState.locked : [];

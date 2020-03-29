@@ -6,9 +6,8 @@ import {
 import {
     ABSectorState,
     BiDirABState,
-    DumpData,
     SectorState,
-    SignalState,
+    TurnoutState,
 } from '@definitions/interfaces';
 
 import {
@@ -21,7 +20,7 @@ import {
     ENTITY_SIGNAL,
     ENTITY_TURNOUT,
 } from '@definitions/entity';
-import {TurnoutMessages} from '@definitions/messages/turnout';
+import {SignalState} from "@app/consts/signals/interfaces";
 
 export interface SignalsState {
     [id: number]: SignalState;
@@ -32,7 +31,7 @@ export interface SectorsState {
 }
 
 export interface TurnoutsState {
-    [id: number]: TurnoutMessages.StateUpdateData;
+    [id: number]: TurnoutState;
 }
 
 export interface ABSectorsState {
@@ -80,7 +79,7 @@ const messageRetrieve = (store: ObjectState, action: ActionMessageRetrieve<Messa
     return store;
 
 };
-const dumpRetrieve = (store: ObjectState, action: ActionMessageRetrieve<Message<DumpData>>): ObjectState => {
+const dumpRetrieve = (store: ObjectState, action: ActionMessageRetrieve<Message<any>>): ObjectState => {
     const {data} = action.message;
     [ENTITY_SECTOR, ENTITY_SIGNAL, ENTITY_TURNOUT, ENTITY_AB_SECTOR, ENTITY_BI_DIR_AB].forEach((entityName: string) => {
         const storeData = {};
@@ -93,39 +92,6 @@ const dumpRetrieve = (store: ObjectState, action: ActionMessageRetrieve<Message<
         }
     });
     return store;
-    /* const sectorsData = {};
-     data[ENTITY_SECTOR].forEach((sector) => {
-         sectorsData[sector.locoNetId] = sector;
-     });
-
-     const signalsData: SignalsState = {};
-     data[ENTITY_SIGNAL].forEach((signal) => {
-         signalsData[signal.locoNetId] = signal;
-     });
-
-     const pointsData: TurnoutsState = {};
-     data[ENTITY_TURNOUT].forEach((point) => {
-         pointsData[point.locoNetId] = point;
-     });
-
-     const ABSectorsData: ABSectorsState = {};
-     data[ENTITY_AB_SECTOR].forEach((sector) => {
-         ABSectorsData[sector.locoNetId] = sector;
-     });
-
-     const biDirABsData: BiDirABsState = {};
-     data[ENTITY_BI_DIR_AB].forEach((AB) => {
-         biDirABsData[AB.locoNetId] = AB;
-     });
-
-     return {
-         ...store,
-         [ENTITY_SECTOR]: sectorsData,
-         [ENTITY_SIGNAL]: signalsData,
-         [ENTITY_TURNOUT]: pointsData,
-         [ENTITY_AB_SECTOR]: ABSectorsData,
-         [ENTITY_BI_DIR_AB]: biDirABsData,
-     };*/
 };
 
 function objectRetrieve<K extends keyof ObjectState, I extends keyof ObjectState[K], T extends ObjectState[K][I]>

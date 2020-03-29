@@ -2,7 +2,7 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {Store} from '@app/reducers';
 import {getTurnoutState} from '@app/middleware/objectState';
-import {TurnoutSchemeDefinition} from "@definitions/points";
+import {TurnoutSchemeDefinition} from "@definitions/turnouts";
 import {TurnoutState} from "@app/consts/interfaces";
 
 interface Props {

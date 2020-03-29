@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Signals from './Parts/Signals/Signals';
-import Turnouts from './Parts/Turnouts/Turnouts';
-import Sectors from './Parts/Sectors/Sectors';
+import Signals from './parts/signals';
+import Turnouts from './parts/Turnouts';
+import Sectors from './parts/Sectors';
 import {SchemeItem} from '@app/schemes';
-import BiDirABs from './Parts/BiDirAB/Index';
+import BiDirABs from './parts/BiDirAB';
 
 interface Props {
     scheme: SchemeItem;
@@ -17,7 +17,7 @@ export default class Scheme extends React.Component<Props, {}> {
             <svg viewBox={scheme.viewBox} style={{width: '100%'}}>
 
                 <Sectors sectors={scheme.objects.sectors}/>
-                <Turnouts points={scheme.objects.points}/>
+                <Turnouts points={scheme.objects.turnouts}/>
                 <Signals signals={scheme.objects.signals}/>
                 <BiDirABs ABs={scheme.objects.biDirAB}/>
 

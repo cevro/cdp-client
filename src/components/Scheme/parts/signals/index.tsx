@@ -6,7 +6,7 @@ interface Props {
     signals: SignalSchemeDefinition[];
 }
 
-export default class Signals extends React.Component<Props, {}> {
+export default class Index extends React.Component<Props, {}> {
 
     public render() {
         return (<>

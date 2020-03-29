@@ -1,11 +1,20 @@
-import {SignalSchemeDefinition} from '@definitions/signals/interfaces';
-import {TurnoutSchemeDefinition} from '@definitions/points';
+import {SignalTypeDefinition} from '@definitions/signals/interfaces';
+import {getAllTurnouts, TurnoutSchemeDefinition} from '@definitions/turnouts';
 import {
     autoBlockPuLpM,
     AutoBlockSectorFrontEndDefinition,
 } from './linePuLpM';
-import {SectorDefinition} from '@definitions/sectors';
-import {signals} from '@definitions/signals';
+import {SectorDefinition, sectors} from '@definitions/sectors';
+import {signals} from "@app/schemes/zstPu";
+import turnouts from "@app/consts/objects/zst/pu/turnouts";
+
+export interface SignalSchemeDefinition extends SignalTypeDefinition {
+    SVGData: {
+        rotate: number;
+        x: number;
+        y: number;
+    };
+}
 
 export interface SchemeItem {
     cards: {
@@ -19,7 +28,7 @@ export interface SchemeItem {
     objects: {
         sectors: SectorDefinition[]
         signals: SignalSchemeDefinition[];
-        points: TurnoutSchemeDefinition[];
+        turnouts: TurnoutSchemeDefinition[];
         ABSectors: AutoBlockSectorFrontEndDefinition[];
         biDirAB: BiDirABDefinition[];
     };
@@ -39,6 +48,7 @@ export interface BiDirABDefinition {
     };
 }
 
+
 export const frontEndScheme: frontEndScheme = {
     'ab-PuLpM': autoBlockPuLpM,
     ZSTPu: {
@@ -51,9 +61,10 @@ export const frontEndScheme: frontEndScheme = {
             routes: true,
         },
         objects: {
-            sectors: [],
+            sectors: sectors,
             signals: signals,
-            points: [],
+            // @ts-ignore
+            turnouts: getAllTurnouts(),
             ABSectors: [],
             biDirAB: [],
         },

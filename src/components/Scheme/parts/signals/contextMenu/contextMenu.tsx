@@ -1,8 +1,7 @@
 import * as React from 'react';
-import Icon from './Icon';
+import Icon from './icon';
 import {getSignalState} from '@app/middleware/objectState';
 import {connect} from 'react-redux';
-import {SignalState} from '@definitions/interfaces';
 import {Store} from '@app/reducers';
 import {
     Action,
@@ -10,6 +9,7 @@ import {
 } from 'redux';
 import {closeContextMenu} from '@app/actions/signalContextMenu';
 import {SignalSchemeDefinition} from "@app/schemes";
+import {SignalState} from "@app/consts/signals/interfaces";
 
 interface Props {
     signals: SignalSchemeDefinition[];

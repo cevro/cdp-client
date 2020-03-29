@@ -12,15 +12,17 @@ import {
 import {displayOptionsState} from '@app/reducers/displayOptions';
 import {signalTypes} from '@definitions/signals/signalTypes';
 
-interface State {
-    displayState?: displayOptionsState;
-
-    onToggleSignal?(type: number): void;
-
-    onToggleTurnouts?(): void;
+interface StateProps {
+    displayState: displayOptionsState;
 }
 
-class Options extends React.Component<State, {}> {
+interface DispatchProps {
+    onToggleSignal(type: number): void;
+
+    onToggleTurnouts(): void;
+}
+
+class Options extends React.Component<StateProps & DispatchProps, {}> {
 
     public render() {
         const {displayState} = this.props;
@@ -56,14 +58,14 @@ class Options extends React.Component<State, {}> {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<Action<string>>): State => {
+const mapDispatchToProps = (dispatch: Dispatch<Action<string>>): DispatchProps => {
     return {
         onToggleSignal: (type: number) => dispatch(toggleSignalText(type)),
         onToggleTurnouts: () => dispatch(toggleTurnoutText()),
     };
 };
 
-const mapStateToProps = (state: Store): State => {
+const mapStateToProps = (state: Store): StateProps => {
     return {
         displayState: state.displayOptions,
     };

@@ -4,9 +4,7 @@ import {Store} from '@app/reducers';
 import {TurnoutsState} from '@app/reducers/objectState';
 import {autoBlockPuLpM} from '@app/schemes/linePuLpM';
 import Row from './row';
-import {
-    turnouts, TurnoutSchemeDefinition,
-} from '@definitions/points';
+import {TurnoutSchemeDefinition,} from '@definitions/turnouts/';
 import {ENTITY_TURNOUT} from "@definitions/entity";
 
 interface State {
@@ -32,7 +30,7 @@ class TurnoutsTable extends React.Component<State, {}> {
     }
 
     private getTurnouts(): TurnoutSchemeDefinition[] {
-        return [...autoBlockPuLpM.objects.points, ...turnouts];
+        return [...autoBlockPuLpM.objects.turnouts/*, ...getAllTurnouts()*/];
     }
 }
 

@@ -11,12 +11,11 @@ import {
     ENTITY_SIGNAL,
     ENTITY_TURNOUT,
 } from '@definitions/entity';
-import {RequestedTurnoutPosition} from '@definitions/points';
+import {RequestedTurnoutPosition} from '@definitions/turnouts';
 import {
     ActionMessageSend,
     onSendMessage,
 } from '../webSocets';
-import {TurnoutMessages} from '@definitions/messages/turnout';
 
 export function send<T>
 (dispatch: Dispatch<Action<string>>, uri: string, method: METHOD_TYPE, data: T): ActionMessageSend<Message<T>> {
@@ -44,12 +43,11 @@ export const changeSignal =
 
 export const changeTurnout =
     (dispatch: Dispatch<Action<string>>, id: number, requestedPosition: RequestedTurnoutPosition):
-        ActionMessageSend<TurnoutMessages.ChangePositionRequest> => {
+        ActionMessageSend<Message<{ requestedPosition: RequestedTurnoutPosition }>> => {
         return dispatch(onSendMessage({
             method: 'patch',
             uri: ENTITY_TURNOUT + '/' + id,
             data: {
-                id,
                 requestedPosition,
             },
         }));

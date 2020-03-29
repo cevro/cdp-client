@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Store} from '@app/reducers';
 import {getBiDirABState} from '@app/middleware/objectState';
 import {BiDirABDefinition} from '@app/schemes';
-import {BiDirABState} from '@definitions/interfaces';
+import {ABDir, BiDirABState} from '@definitions/interfaces';
 import {changeABDir} from '@app/actions/messages';
 import {
     Action,
@@ -50,7 +50,7 @@ class BiDirAB extends React.Component<Props & State, {}> {
         );
     }
 
-    private getDirClassName(mainDir: 'L' | 'P', arrow: 'L' | 'P', dir: -1 | 0 | 1): string {
+    private getDirClassName(mainDir: 'L' | 'P', arrow: 'L' | 'P', dir: ABDir): string {
         if (dir === undefined || dir === 0) {
             return 'undefined'
         }

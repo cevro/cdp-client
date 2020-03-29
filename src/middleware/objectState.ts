@@ -3,11 +3,11 @@ import {
     ABSectorState,
     BiDirABState,
     SectorState,
-    SignalState,
+    TurnoutState,
 } from '@definitions/interfaces';
 import {ObjectState} from '../reducers/objectState';
-import {TurnoutMessages} from '@definitions/messages/turnout';
 import {ENTITY_AB_SECTOR, ENTITY_BI_DIR_AB, ENTITY_SECTOR, ENTITY_SIGNAL, ENTITY_TURNOUT} from "@definitions/entity";
+import {SignalState} from "@app/consts/signals/interfaces";
 
 function getObjectState<K extends keyof ObjectState, I extends keyof ObjectState[K]>
 (accessKey: K, store: Store, locoNetId: I): ObjectState[K][I] {
@@ -30,7 +30,7 @@ export const getSignalState = (store: Store, signalId: number): SignalState => {
 export const getSectorState = (store: Store, sectorId: number): SectorState => {
     return getObjectState(ENTITY_SECTOR, store, sectorId);
 };
-export const getTurnoutState = (store: Store, pointId: number): TurnoutMessages.StateUpdateData => {
+export const getTurnoutState = (store: Store, pointId: number): TurnoutState => {
     return getObjectState(ENTITY_TURNOUT, store, pointId);
 };
 

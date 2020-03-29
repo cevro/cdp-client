@@ -220,6 +220,9 @@ body {
   background: black;
   color: #ccc; }
 
+html {
+  font-size: 12px; }
+
 svg {
   background: black; }
 
@@ -308,17 +311,25 @@ svg {
   .card.bg-black .card-header {
     border-color: #999; }
 
-.banalized-AB g.dir-display polyline {
+.bi-dir-AB g.dir-display polyline {
   stroke-width: 2px;
   fill: none; }
-.banalized-AB g.dir-display.undefined polyline {
+.bi-dir-AB g.dir-display.undefined polyline {
   stroke: #80f; }
-.banalized-AB g.dir-display.active polyline {
+.bi-dir-AB g.dir-display.active polyline {
   stroke: green; }
-.banalized-AB g.dir-display.inactive polyline {
+.bi-dir-AB g.dir-display.inactive polyline {
   stroke: #222; }
 
 .list-group-item.list-item-undefined {
-  background-color: #80f; }
+  background-color: rgba(136, 0, 255, 0.2); }
+.list-group-item.list-item-secondary {
+  background-color: rgba(204, 204, 204, 0.2); }
+.list-group-item.list-item-danger {
+  background-color: rgba(255, 0, 0, 0.2); }
+.list-group-item.list-item-warning {
+  background-color: rgba(255, 165, 0, 0.2); }
+.list-group-item.list-item-success {
+  background-color: rgba(0, 128, 0, 0.2); }
 
 /*# sourceMappingURL=bundle.css.map */

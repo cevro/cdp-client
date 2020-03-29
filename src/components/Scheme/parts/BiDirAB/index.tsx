@@ -1,5 +1,5 @@
 import * as React from 'react';
-import BiDirAB from './BiDirAB';
+import BiDirAB from './biDirAB';
 import {BiDirABDefinition} from '@app/schemes';
 
 interface Props {

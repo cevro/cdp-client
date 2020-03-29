@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {TurnoutSchemeDefinition} from '@definitions/points';
-import {TurnoutMessages} from '@definitions/messages/turnout';
+import {TurnoutSchemeDefinition} from '@definitions/turnouts';
 import TurnoutChange from './turnoutChange';
+import {TurnoutState} from "@app/consts/interfaces";
 
 interface Props {
     turnoutDef: TurnoutSchemeDefinition;
-    turnoutState: TurnoutMessages.StateUpdateData;
+    turnoutState: TurnoutState;
 }
 
 export default class Row extends React.Component<Props, {}> {

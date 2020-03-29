@@ -4,7 +4,7 @@ import {Store} from '@app/reducers';
 import {SignalsState} from '@app/reducers/objectState';
 import Row from './row';
 import {SignalTypeDefinition} from '@definitions/signals/interfaces';
-import {getAllSignals} from '@definitions/signals/all';
+import {getAllSignals} from '@app/consts/signals/';
 import {ENTITY_SIGNAL} from "@definitions/entity";
 
 interface State {

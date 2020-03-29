@@ -1,9 +1,8 @@
 import {signalTypes} from '@app/consts/signals/signalTypes';
-import {SchemeItem} from '@app/schemes';
+import {SchemeItem, SignalSchemeDefinition} from '@app/schemes';
 import {SectorDefinition} from '@app/consts/sectors';
-import {SignalSchemeDefinition} from '@app/consts/signals/interfaces';
-import {getSignalDefinition} from '@app/consts/signals/all';
 import {ABSectors, AutoBlockSectorDefinition} from '@app/consts/ABSectors/ABSectors';
+import {getSignalDefinition} from "@app/consts/signals/";
 
 export type AutoBlockSectorFrontEndDefinition = AutoBlockSectorDefinition;
 
@@ -575,7 +574,7 @@ export const autoBlockPuLpM: SchemeItem = {
             ...sectors2,
         ],
         signals: signals,
-        points: [],
+        turnouts: [],
         ABSectors: ABSectors,
         biDirAB: [
             {

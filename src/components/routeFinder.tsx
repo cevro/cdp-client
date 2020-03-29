@@ -5,9 +5,9 @@ import {
     Dispatch,
 } from 'redux';
 import { Store } from '../reducers';
-import { signals } from '@definitions/signals';
 import { sectors } from '@definitions/sectors';
 import { findRoute } from '../actions/routeBuilder';
+import {getAllSignals} from "@app/consts/signals/";
 
 interface State {
     startSignal?: number;
@@ -23,7 +23,7 @@ class RouteFinder extends React.Component<State, {}> {
         const {startSignal, endSector} = this.props;
         let signal = null;
         if (startSignal !== undefined) {
-            signal = signals.filter((def) => {
+            signal = getAllSignals().filter((def) => {
                 return def.locoNetId === startSignal;
             })[0];
         }

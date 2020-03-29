@@ -5,8 +5,8 @@ import {
     Dispatch,
 } from 'redux';
 import {clearSelect} from '@app/actions/routeBuilder';
-import RouteFinder from '../RouteFinder';
-import RouteBuilder from '../RouteBuilder';
+import RouteFinder from '../routeFinder';
+import RouteBuilder from '../routeBuilder';
 import {Store} from '@app/reducers';
 
 interface State {

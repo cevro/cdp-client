@@ -9,8 +9,8 @@ import {
     Action,
     Dispatch,
 } from 'redux';
-import {SignalState} from '@definitions/interfaces';
 import {SignalSchemeDefinition} from "@app/schemes";
+import {SignalState} from "@app/consts/signals/interfaces";
 
 interface Props {
     definition: SignalSchemeDefinition;

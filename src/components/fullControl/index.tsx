@@ -25,7 +25,7 @@ export default class Index extends React.Component<{}, InnerState> {
             {
                 id: 'signals',
                 component: SignalsTable,
-                label: 'Signals',
+                label: 'signals',
             },
             {
                 id: 'turnouts',

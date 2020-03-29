@@ -6,7 +6,7 @@ import {
 } from 'redux';
 import {changeTurnout} from '@app/actions/messages';
 import {TurnoutState} from '@definitions/interfaces';
-import {RequestedTurnoutPosition} from '@definitions/points';
+import {RequestedTurnoutPosition} from '@definitions/turnouts';
 
 interface State {
     onChangeTurnout?(state: RequestedTurnoutPosition): void;
