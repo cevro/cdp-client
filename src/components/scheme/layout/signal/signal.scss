@@ -1,0 +1,68 @@
+@keyframes disconnected {
+  50% {
+    opacity: 0;
+  }
+}
+
+@mixin disconnect {
+  animation: disconnected 0.5s infinite;
+}
+
+$disconnect-color: #80f;
+
+@mixin signal-state($color) {
+  polygon, text {
+    fill: $color;
+  }
+  polyline {
+    stroke: $color;
+  }
+}
+
+@mixin signal-icon($not-allowed-color,$allowed-color,$lockout-color,$shunt-color,$off-color) {
+  polyline {
+    stroke-width: 2;
+  }
+  &.state-not-allowed {
+    @include signal-state($not-allowed-color);
+  }
+  &.state-shift {
+    @include signal-state($shunt-color);
+  }
+  &.state-off {
+    @include signal-state($off-color);
+  }
+
+  &.state-undefined {
+    @include signal-state($disconnect-color);
+
+    polyline, polygon, text {
+      @include disconnect;
+    }
+  }
+
+  &.state-allowed {
+    @include signal-state($allowed-color);
+  }
+  &.state-lockout {
+    @include signal-state($lockout-color);
+  }
+}
+
+.signal {
+  &.signal-type-entry {
+    @include signal-icon(#555, green, yellow, yellow, yellow)
+  }
+
+  &.signal-type-exit, &.signal-type-path, &.signal-type-undefined {
+    @include signal-icon(#555, green, yellow, white, yellow)
+  }
+
+  &.signal-type-shunt {
+    @include signal-icon(#555, yellow, yellow, white, yellow)
+  }
+
+  &.signal-type-auto_block {
+    @include signal-icon(red, green, yellow, yellow, #222)
+  }
+}

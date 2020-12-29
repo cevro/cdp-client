@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {TurnoutDefinition} from '@definitions/turnouts';
 import TurnoutChange from './turnoutChange';
-import {TurnoutState} from "@app/consts/interfaces";
+import {TurnoutState} from "app/consts/interfaces";
 
-interface Props {
+interface OwnProps {
     turnoutDef: TurnoutDefinition;
     turnoutState: TurnoutState;
 }
 
-export default class Row extends React.Component<Props, {}> {
+export default class Row extends React.Component<OwnProps, {}> {
     public render() {
         const {turnoutDef, turnoutState} = this.props;
         const position = turnoutState ? turnoutState.position : undefined;

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {Store} from '@app/reducers';
+import {Store} from 'app/reducers';
 import {Message} from "@definitions/messages";
 
-interface State {
-    messages?: Message[];
+interface StateProps {
+    messages: Message[];
 }
 
-class MessageBox extends React.Component<State, {}> {
+class MessageBox extends React.Component<StateProps, {}> {
     public render() {
         const {messages} = this.props;
         const msgs = messages.map((message, index) => {
@@ -37,7 +37,7 @@ class MessageBox extends React.Component<State, {}> {
 
 // <LocoNetConnector/>
 
-const mapStateToProps = (state: Store): State => {
+const mapStateToProps = (state: Store): StateProps => {
     return {
         messages: state.messages,
     };

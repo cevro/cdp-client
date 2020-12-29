@@ -1,47 +1,32 @@
 import {
-    ACTION_CLOSE_CONTEXT_MENU,
-    ACTION_DISPLAY_CONTEXT_MENU,
+    ACTION_SIGNAL_CONTEXT_MENU_TOGGLE, ActionContextMenu,
 } from '../actions/signalContextMenu';
 
 export interface State {
-    active: boolean;
-    id: number;
+    signalUId: string | null;
     coordinates: {
         x: number;
         y: number;
-    };
+    } | null;
 }
 
-const contextMenuDisplay = (state: State, action): State => {
-    const {id, coordinates} = action;
+const contextMenuDisplay = (state: State, action: ActionContextMenu): State => {
+    const {signalUId, coordinates} = action;
     return {
-        id,
-        active: true,
+        signalUId,
         coordinates,
     };
 };
 const initState: State = {
-    id: 0,
-    active: false,
-    coordinates: {
-        x: 0,
-        y: 0,
-    },
-};
-const closeContextMenu = (state: State): State => {
-    return {
-        ...state,
-        active: false,
-    }
+    signalUId: null,
+    coordinates: null,
 };
 
 export const signalContextMenu = (state: State = initState, action): State => {
     const {type} = action;
     switch (type) {
-        case ACTION_DISPLAY_CONTEXT_MENU:
+        case ACTION_SIGNAL_CONTEXT_MENU_TOGGLE:
             return contextMenuDisplay(state, action);
-        case ACTION_CLOSE_CONTEXT_MENU:
-            return closeContextMenu(state);
         default:
             return state;
     }

@@ -1,5 +1,5 @@
-import {combineReducers} from 'redux';
-import {messages} from './messages';
+import { combineReducers } from 'redux';
+import { messages } from './messages';
 import {
     ObjectState,
     objectState,
@@ -16,14 +16,11 @@ import {
     displayOptions,
     displayOptionsState,
 } from './displayOptions';
-import {
-    State as WebSocketState,
-    webSocket,
-} from './webSocketBuffer';
+import { fetchApi, FetchApiState } from '../fetchApi/reducer';
 
 export const app = combineReducers({
     messages,
-    webSocket,
+    fetchApi,
     objectState,
     routeBuilder,
     signalContextMenu,
@@ -33,8 +30,8 @@ export const app = combineReducers({
 export interface Store {
     displayOptions: displayOptionsState;
     objectState: ObjectState;
-    webSocket: WebSocketState;
     signalContextMenu: SignalContextState
     routeBuilder: RouteBuilderState;
     messages: any[];
+    fetchApi: FetchApiState;
 }

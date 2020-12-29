@@ -1,21 +1,23 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {
     Action,
     Dispatch,
 } from 'redux';
-import {clearSelect} from '@app/actions/routeBuilder';
+import { clearSelect } from 'app/actions/routeBuilder';
 import RouteFinder from '../routeFinder';
 import RouteBuilder from '../routeBuilder';
-import {Store} from '@app/reducers';
+import { Store } from 'app/reducers';
 
-interface State {
-    availableRoutes?: any[];
-
-    onClearSelect?(): void;
+interface StateProps {
+    availableRoutes: any[];
 }
 
-class Routes extends React.Component<State, {}> {
+interface DispatchProps {
+    onClearSelect(): void;
+}
+
+class Routes extends React.Component<StateProps & DispatchProps, {}> {
     public componentDidUpdate() {
 
     }
@@ -33,13 +35,13 @@ class Routes extends React.Component<State, {}> {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<Action<string>>): State => {
+const mapDispatchToProps = (dispatch: Dispatch<Action<string>>): DispatchProps => {
     return {
         onClearSelect: () => dispatch(clearSelect()),
     };
 };
 
-const mapStateToProps = (store: Store): State => {
+const mapStateToProps = (store: Store): StateProps => {
     return {
         availableRoutes: store.routeBuilder.availableRoutes,
     };

@@ -33,7 +33,27 @@ module.exports = {
                 use: 'awesome-typescript-loader',
                 //use: 'ts-loader',
                 exclude: /node_modules/,
-            }
+            },
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    // Creates `style` nodes from JS strings
+                    "style-loader",
+                    // Translates CSS into CommonJS
+                    "css-loader",
+                    // Compiles Sass to CSS
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            webpackImporter: false,
+                            sassOptions: {
+                                includePaths: ['node_modules'],
+                            },
+                            implementation: require('sass'),
+                        },
+                    },
+                ],
+            },
         ]
     },
 };

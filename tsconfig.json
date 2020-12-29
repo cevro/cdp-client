@@ -2,6 +2,7 @@
   "compilerOptions": {
     "noImplicitAny": false,
     "module": "commonjs",
+    "outDir": "build/",
     "target": "es6",
     "jsx": "react",
     "baseUrl": ".",
@@ -9,7 +10,7 @@
       "@definitions/*": [
         "src/consts/*"
       ],
-      "@app/*": [
+      "app/*": [
         "src/*"
       ]
     }

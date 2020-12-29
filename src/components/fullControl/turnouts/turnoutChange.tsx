@@ -1,19 +1,19 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {
     Action,
     Dispatch,
 } from 'redux';
-import {changeTurnout} from '@app/actions/messages';
-import {TurnoutState} from '@definitions/interfaces';
-import {RequestedTurnoutPosition} from '@definitions/turnouts';
+import { changeTurnout } from 'app/actions/messages';
+import { TurnoutState } from '@definitions/interfaces';
+import { RequestedTurnoutPosition } from '@definitions/turnouts';
 
 interface DispatchProps {
     onChangeTurnout(state: RequestedTurnoutPosition): void;
 }
 
 interface OwnProps {
-    turnoutState?: TurnoutState;
+    turnoutState: TurnoutState | null;
     locoNetId: number
 }
 

@@ -1,7 +1,6 @@
 import * as React from 'react';
-import {AutoBlockSectorFrontEndDefinition} from '@app/schemes/linePuLpM';
 import {ABSectorState} from '@definitions/interfaces';
-import {Store} from '@app/reducers';
+import {Store} from 'app/reducers';
 import {
     Action,
     Dispatch,
@@ -9,10 +8,11 @@ import {
 import {
     changeABCondition,
     removeABError,
-} from '@app/actions/messages/ABSector';
+} from 'app/actions/messages/ABSector';
 import {connect} from 'react-redux';
-import { MapObjectState} from '@app/reducers/objectState';
+import { MapObjectState} from 'app/reducers/objectState';
 import {ENTITY_AB_SECTOR} from "@definitions/entity";
+import { AutoBlockSectorFrontEndDefinition } from 'app/config/layouts/linePuLpM';
 
 interface OwnProps {
     definition: AutoBlockSectorFrontEndDefinition;

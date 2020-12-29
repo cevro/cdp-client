@@ -1,15 +1,15 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {Store} from '@app/reducers';
+import {Store} from 'app/reducers';
 import {
     Action,
     Dispatch,
 } from 'redux';
-import {MapObjectState} from '@app/reducers/objectState';
-import {changeSector} from '@app/actions/messages';
+import {MapObjectState} from 'app/reducers/objectState';
+import {changeSector} from 'app/actions/messages';
 import {SectorDefinition} from '@definitions/sectors';
 import {ENTITY_SECTOR} from "@definitions/entity";
-import {SectorState} from "@app/consts/interfaces";
+import {SectorState} from "app/consts/interfaces";
 
 interface OwnProps {
     sectors: SectorDefinition[];

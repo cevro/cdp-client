@@ -1,13 +1,8 @@
-import {Store} from '../reducers';
-import {
-    ABSectorState,
-    BiDirABState,
-    SectorState,
-    TurnoutState,
-} from '@definitions/interfaces';
-import {ObjectState} from '../reducers/objectState';
-import {ENTITY_AB_SECTOR, ENTITY_BI_DIR_AB, ENTITY_SECTOR, ENTITY_SIGNAL, ENTITY_TURNOUT} from "@definitions/entity";
-import {SignalState} from "@app/consts/signals/interfaces";
+import { Store } from '../reducers';
+import { ABSectorState, BiDirABState, SectorState, TurnoutState } from '@definitions/interfaces';
+import { ObjectState } from '../reducers/objectState';
+import { ENTITY_AB_SECTOR, ENTITY_BI_DIR_AB, ENTITY_SECTOR, ENTITY_SIGNAL, ENTITY_TURNOUT } from '@definitions/entity';
+import { Signal } from 'app/consts/signals/interfaces';
 
 function getObjectState<K extends keyof ObjectState, I extends keyof ObjectState[K]>
 (accessKey: K, store: Store, locoNetId: I): ObjectState[K][I] {
@@ -23,8 +18,15 @@ function getObjectState<K extends keyof ObjectState, I extends keyof ObjectState
     return state;
 }
 
-export const getSignalState = (store: Store, signalId: number): SignalState => {
-    return getObjectState(ENTITY_SIGNAL, store, signalId);
+export const getSignalByUid = (store: Store, signalUId: string): Signal.State => {
+    const objects = store.objectState[ENTITY_SIGNAL];
+    let state = undefined;
+    for (const id in objects) {
+        if (objects.hasOwnProperty(signalUId)) {
+            state = objects[signalUId];
+        }
+    }
+    return state;
 };
 
 export const getSectorState = (store: Store, sectorId: number): SectorState => {

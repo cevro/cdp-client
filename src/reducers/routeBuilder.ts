@@ -8,7 +8,6 @@ import {
     ACTION_MESSAGE_RETRIEVE,
     ActionMessageRetrieve,
 } from '../actions/webSocets';
-import {Message} from "@definitions/messages";
 import {TrainRouteDump} from '@definitions/interfaces';
 
 export interface State {

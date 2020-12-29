@@ -1,46 +1,46 @@
 import * as React from 'react';
 import SignalChange from './signalChange';
-import Icon from '@app/components/Scheme/parts/signals/contextMenu/icon';
-import {signalStateMapping} from '@app/middleware/signal';
-import {signalTypes} from '@definitions/signals/signalTypes';
-import {SignalState, SignalTypeDefinition} from '@definitions/signals/interfaces';
+import Icon from 'app/components/scheme/parts/signals/contextMenu/icon';
+import { FrontendSignal } from 'app/middleware/fronendSignal';
+import { signalTypes } from '@definitions/signals/signalTypes';
+import { Signal } from '@definitions/signals/interfaces';
 
-interface Props {
-    signalDef: SignalTypeDefinition;
-    signalState: SignalState;
+interface OwnProps {
+    signalState: Signal.State;
 }
 
-export default class Row extends React.Component<Props, {}> {
+export default class Row extends React.Component<OwnProps, {}> {
     public render() {
-        const {signalDef, signalState} = this.props;
+        const {signalState} = this.props;
         const displayState = signalState ? signalState.displayAspect : undefined;
         const requestedState = signalState ? signalState.requestedAspect : undefined;
         return <div className="col-12 row">
             <div className="col-lg-10">
                 <h1 className="col-12 text-center">
-                    <span className={'badge signal-badge-' + signalDef.type}>{signalDef.name}</span>
+                    <span className={'badge signal-badge-' + signalState.type}>{signalState.name}</span>
                 </h1>
                 <hr/>
                 <div className="col-12 row">
-                    <span className="col-3">locoNetId: {signalDef.locoNetId}</span>
-                    <span className="col-3">name: {signalDef.name}</span>
-                    <span className="col-3">conf: {signalDef.lights.join(' ')}</span>
-                    <span className="col-3">type: {signalTypes.getLabel(signalDef.type)}</span>
+                    <span className="col-3">Id: {signalState.signalId}</span>
+                    <span className="col-3">name: {signalState.name}</span>
+                    <span className="col-3">conf: {signalState.lights.join(' ')}</span>
+                    <span className="col-3">type: {signalTypes.getLabel(signalState.type)}</span>
                 </div>
                 <hr/>
                 <div className="col-12 row">
-                    <span className="col-4">display: ({displayState}) {signalStateMapping(displayState)}</span>
                     <span
-                        className="col-4">requested: ({requestedState}) {signalStateMapping(requestedState)}</span>
+                        className="col-4">display: ({displayState}) {FrontendSignal.signalStateMapping(displayState)}</span>
+                    <span
+                        className="col-4">requested: ({requestedState}) {FrontendSignal.signalStateMapping(requestedState)}</span>
                     <span className="col-4">
                             <SignalChange
-                                locoNetId={signalDef.locoNetId}
+                                signalId={signalState.signalId}
                                 signalState={signalState}/>
                         </span>
                 </div>
             </div>
             <div className="col-lg-2">
-                <Icon signal={signalDef} state={displayState}/>
+                <Icon signal={signalState} state={displayState}/>
             </div>
         </div>;
     }

@@ -1,30 +1,32 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import {
-    Action,
-    Dispatch,
-} from 'redux';
+import { Action, Dispatch } from 'redux';
 import { Store } from '../reducers';
 import { sectors } from '@definitions/sectors';
 import { findRoute } from '../actions/routeBuilder';
-import {getAllSignals} from "@app/consts/signals/";
+import { ENTITY_SIGNAL } from 'app/consts/entity';
+import { Signal } from 'app/consts/signals/interfaces';
+import { MapObjectState } from 'app/reducers/objectState';
 
-interface State {
-    startSignal?: number;
-    endSector?: number;
-
-    onFindRoute?(signalId: number, sectorId: number): void;
+interface StateProps {
+    startSignal: number;
+    endSector: number;
+    signals: MapObjectState<Signal.State>;
 }
 
-class RouteFinder extends React.Component<State, {}> {
+interface DispatchProps {
+    onFindRoute(signalId: number, sectorId: number): void;
+}
+
+class RouteFinder extends React.Component<StateProps & DispatchProps, {}> {
 
     public render() {
-
-        const {startSignal, endSector} = this.props;
+        return null;
+        const {startSignal, endSector, signals} = this.props;
         let signal = null;
         if (startSignal !== undefined) {
-            signal = getAllSignals().filter((def) => {
-                return def.locoNetId === startSignal;
+            signal = signals.filter((def) => {
+                return def.signalId === startSignal;
             })[0];
         }
         let sector = null;
@@ -56,16 +58,17 @@ class RouteFinder extends React.Component<State, {}> {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<Action<string>>): State => {
+const mapDispatchToProps = (dispatch: Dispatch<Action<string>>): DispatchProps => {
     return {
         onFindRoute: (signalId: number, sectorId: number) => findRoute(dispatch, signalId, sectorId),
     };
 };
 
-const mapStateToProps = (state: Store): State => {
+const mapStateToProps = (state: Store): StateProps => {
     return {
         startSignal: state.routeBuilder.startSignalId,
         endSector: state.routeBuilder.endSectorId,
+        signals: state.objectState[ENTITY_SIGNAL],
     };
 };
 

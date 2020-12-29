@@ -3,9 +3,8 @@ import {
     Dispatch,
 } from 'redux';
 
-import {BuildOptions, RouteFinderRequest} from '@definitions/interfaces';
-import {onSendMessage} from './webSocets';
-import {Message} from '@definitions/messages';
+import { BuildOptions } from '@definitions/interfaces';
+import { dispatchFetch } from 'app/fetchApi/netteFetch';
 
 export const ACTION_SIGNAL_SELECT = 'ACTION_SIGNAL_SELECT';
 
@@ -37,24 +36,9 @@ export const clearSelect = (): Action<string> => {
 };
 
 export const findRoute = (dispatch: Dispatch<Action<string>>, startSignalId: number, endSectorId: number) => {
-    return dispatch(onSendMessage<RouteFinderRequest>({
-        method: 'get',
-        uri: 'route',
-        data: {
-            startSignalId,
-            endSectorId,
-        },
-    }));
+    return dispatchFetch('route/find', dispatch, JSON.stringify({startSignalId, endSectorId}));
 };
 export const buildRoute = (dispatch: Dispatch<Action<string>>, id: number, buildOptions: BuildOptions) => {
-    dispatch(clearSelect());
-    return dispatch(onSendMessage({
-        method: 'post',
-        uri: 'route',
-        data: {
-            id,
-            buildOptions,
-        },
-    }));
+    return dispatchFetch('route/build', dispatch, JSON.stringify({id, buildOptions}));
 };
 

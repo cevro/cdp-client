@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {Store} from '@app/reducers';
+import {Store} from 'app/reducers';
 import {TrainRouteDump} from '@definitions/interfaces';
 
 interface StateProps {

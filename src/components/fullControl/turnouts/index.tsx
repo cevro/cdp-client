@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {Store} from '@app/reducers';
-import {MapObjectState} from '@app/reducers/objectState';
+import {Store} from 'app/reducers';
+import {MapObjectState} from 'app/reducers/objectState';
 import Row from './row';
 import {getAllTurnouts, TurnoutDefinition} from '@definitions/turnouts/';
 import {ENTITY_TURNOUT} from "@definitions/entity";
-import {TurnoutState} from "@app/consts/interfaces";
+import {TurnoutState} from "app/consts/interfaces";
 
 interface StateProps {
     turnoutsState: MapObjectState<TurnoutState>;

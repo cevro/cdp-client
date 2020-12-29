@@ -1,11 +1,12 @@
-import {Action} from 'redux';
+import { Action } from 'redux';
+import { Signal } from 'app/consts/signals/interfaces';
 
 export interface ToggleSignalAction extends Action<string> {
-    signalType: number;
+    signalType: Signal.Type;
 }
 
 export const ACTION_TOGGLE_SIGNAL_TEXT = 'ACTION_TOGGLE_SIGNAL_TEXT';
-export const toggleSignalText = (signalType: number): ToggleSignalAction => {
+export const toggleSignalText = (signalType: Signal.Type): ToggleSignalAction => {
     return {
         type: ACTION_TOGGLE_SIGNAL_TEXT,
         signalType,
@@ -18,10 +19,3 @@ export const toggleTurnoutText = (): Action<string> => {
         type: ACTION_TOGGLE_POINT_TEXT,
     };
 };
-/*
-export const ACTION_TOGGLE_SECTOR_TEXT = 'ACTION_TOGGLE_SECTOR_TEXT';
-export const toggleSectorText = (): Action<string> => {
-    return {
-        type: ACTION_TOGGLE_SECTOR_TEXT,
-    };
-};*/

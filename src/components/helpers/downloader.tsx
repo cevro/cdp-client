@@ -1,48 +1,24 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {
     connectionClose,
     onMessageRetrieve,
-    successSend,
-} from '@app/actions/webSocets';
-import {Store} from '@app/reducers';
-import {Message} from '@definitions/messages';
-import {Dispatch, Action} from "redux";
-
-interface StateProps {
-    messagesToSend: {
-        [key: number]: Message;
-    };
-}
+} from 'app/actions/webSocets';
+import { Message } from '@definitions/messages';
+import { Dispatch, Action } from 'redux';
 
 interface DispatchProps {
 
     onMessage(data: Message): void;
 
     onConnectionClose(): void;
-
-    onSuccessSend(id: string): void;
 }
 
-class Downloader extends React.Component<StateProps & DispatchProps, {}> {
+class Downloader extends React.Component<DispatchProps, {}> {
     private ws: WebSocket;
 
     public componentDidMount() {
         this.connect();
-    }
-
-    public componentDidUpdate() {
-        const {messagesToSend, onSuccessSend} = this.props;
-        for (const index in messagesToSend) {
-            if (this.props.messagesToSend.hasOwnProperty(index)) {
-                try {
-                    this.ws.send(JSON.stringify(this.props.messagesToSend[index]));
-                    onSuccessSend(index);
-                } catch (e) {
-                    console.log(e);
-                }
-            }
-        }
     }
 
     public render() {
@@ -100,14 +76,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action<string>>): DispatchProps =
     return {
         onMessage: (data) => dispatch(onMessageRetrieve(data)),
         onConnectionClose: () => dispatch(connectionClose()),
-        onSuccessSend: (id) => dispatch(successSend(id)),
     };
 };
 
-const mapStateToProps = (store: Store): StateProps => {
-    return {
-        messagesToSend: store.webSocket.messages,
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Downloader);
+export default connect(null, mapDispatchToProps)(Downloader);

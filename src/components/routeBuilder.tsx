@@ -1,22 +1,24 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {
     Action,
     Dispatch,
 } from 'redux';
-import {Store} from '../reducers';
-import {buildRoute} from '../actions/routeBuilder';
-import {BuildOptions} from '@definitions/interfaces';
+import { Store } from '../reducers';
+import { buildRoute } from '../actions/routeBuilder';
+import { BuildOptions } from '@definitions/interfaces';
 
-interface State {
-    availableRoutes?: any[];
-    startSignal?: number;
-    endSector?: number;
-
-    onBuildRoute?(id: number, buildOptions: BuildOptions): void;
+interface StateProps {
+    availableRoutes: any[];
+    startSignal: number;
+    endSector: number;
 }
 
-class RouteBuilder extends React.Component<State, BuildOptions> {
+interface DispatchProps {
+    onBuildRoute(id: number, buildOptions: BuildOptions): void;
+}
+
+class RouteBuilder extends React.Component<StateProps & DispatchProps, BuildOptions> {
     constructor(props) {
         super(props);
         this.state = {
@@ -94,13 +96,13 @@ class RouteBuilder extends React.Component<State, BuildOptions> {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<Action<string>>): State => {
+const mapDispatchToProps = (dispatch: Dispatch<Action<string>>): DispatchProps => {
     return {
         onBuildRoute: (id: number, buildOptions: BuildOptions) => buildRoute(dispatch, id, buildOptions),
     };
 };
 
-const mapStateToProps = (state: Store): State => {
+const mapStateToProps = (state: Store): StateProps => {
     return {
         availableRoutes: state.routeBuilder.availableRoutes,
         startSignal: state.routeBuilder.startSignalId,

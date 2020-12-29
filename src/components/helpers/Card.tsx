@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-interface Props {
+interface OwnProps {
     name: string | JSX.Element;
 }
 
-export default class Card extends React.Component<Props, {}> {
+export default class Card extends React.Component<OwnProps, {}> {
 
     public render() {
 

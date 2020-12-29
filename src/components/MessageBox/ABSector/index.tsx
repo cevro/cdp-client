@@ -1,14 +1,14 @@
 import * as React from 'react';
-import {MapObjectState} from '@app/reducers/objectState';
-import {AutoBlockSectorFrontEndDefinition} from '@app/schemes/linePuLpM';
-import {Store} from '@app/reducers';
+import {MapObjectState} from 'app/reducers/objectState';
+import {Store} from 'app/reducers';
 import {connect} from 'react-redux';
 import Row from "./row";
 import {ENTITY_AB_SECTOR} from "@definitions/entity";
-import {ABSectorState} from "@app/consts/interfaces";
+import {ABSectorState} from "app/consts/interfaces";
+import { AutoBlockSectorFrontEndDefinition } from 'app/config/layouts/linePuLpM';
 
 interface StateProps {
-    ABSectorsState?: MapObjectState<ABSectorState>;
+    ABSectorsState: MapObjectState<ABSectorState>;
 }
 
 interface OwnProps {

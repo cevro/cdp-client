@@ -5,24 +5,17 @@ interface SignalCoordinates {
     y: number;
 }
 
-export const ACTION_DISPLAY_CONTEXT_MENU = 'ACTION_DISPLAY_CONTEXT_MENU';
+export const ACTION_SIGNAL_CONTEXT_MENU_TOGGLE = 'ACTION_SIGNAL_CONTEXT_MENU_TOGGLE';
 
-export interface ActionContextMenuDisplay extends Action<string> {
-    id: number;
-    coordinates: SignalCoordinates;
+export interface ActionContextMenu extends Action<string> {
+    signalUId: string | null;
+    coordinates: SignalCoordinates | null;
 }
 
-export const onSignalContextMenu = (id: number, coordinates: SignalCoordinates): ActionContextMenuDisplay => {
+export const toggleContextMenu = (signalUId: string | null, coordinates: SignalCoordinates | null): ActionContextMenu => {
     return {
-        type: ACTION_DISPLAY_CONTEXT_MENU,
-        id,
+        type: ACTION_SIGNAL_CONTEXT_MENU_TOGGLE,
+        signalUId: signalUId,
         coordinates,
-    };
-};
-
-export const ACTION_CLOSE_CONTEXT_MENU = 'ACTION_CLOSE_CONTEXT_MENU';
-export const closeContextMenu = (): Action<string> => {
-    return {
-        type: ACTION_CLOSE_CONTEXT_MENU,
     };
 };

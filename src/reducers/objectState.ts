@@ -5,7 +5,7 @@ import {
 } from '../actions/webSocets';
 import {
     ABSectorState,
-    BiDirABState, LocoNetDefinition,
+    BiDirABState,
     SectorState,
     TurnoutState,
 } from '@definitions/interfaces';
@@ -17,24 +17,18 @@ import {
     ENTITY_SIGNAL,
     ENTITY_TURNOUT,
 } from '@definitions/entity';
-import {SignalState} from "@app/consts/signals/interfaces";
+import { Signal } from 'app/consts/signals/interfaces';
 
 export interface MapObjectState<T> {
     [id: number]: T;
 }
 
-export interface LocoNetConnectorState {
-    availablePorts: string[];
-    status: number;
-    port: string;
-}
-
-interface OS<O extends LocoNetDefinition = LocoNetDefinition> {
+interface OS<O = any> {
     [key: string]: MapObjectState<O>
 }
 
 export interface ObjectState extends OS {
-    [ENTITY_SIGNAL]: MapObjectState<SignalState>;
+    [ENTITY_SIGNAL]: MapObjectState<Signal.State>;
     [ENTITY_SECTOR]: MapObjectState<SectorState>;
     [ENTITY_TURNOUT]: MapObjectState<TurnoutState>;
     [ENTITY_AB_SECTOR]: MapObjectState<ABSectorState>;
@@ -44,47 +38,37 @@ export interface ObjectState extends OS {
     // locoNetConnector: LocoNetConnectorState;
 }
 
-const messageRetrieve = (store: ObjectState, action: ActionMessageRetrieve<any>): ObjectState => {
-    const {uri, method} = action.message;
-    if (method === 'patch') {
-
-        switch (action.message.uri) {
-            case '/':
-                return dumpRetrieve(store, action);
-        }
-        const match = uri.match(/([a-zA-Z_-]+)\/([0-9]+)/);
-        return objectRetrieve(+match[2], match[1], store, action);
-    }
-    return store;
-
-};
-const dumpRetrieve = (store: ObjectState, action: ActionMessageRetrieve<any>): ObjectState => {
+const dumpRetrieve = (store: ObjectState, action: ActionMessageRetrieve): ObjectState => {
     const {data} = action.message;
-    [ENTITY_SECTOR, ENTITY_SIGNAL, ENTITY_TURNOUT, ENTITY_AB_SECTOR, ENTITY_BI_DIR_AB].forEach((entityName: string) => {
+    if (data.hasOwnProperty(ENTITY_SIGNAL)) {
         const storeData = {};
-        data[entityName].forEach((value) => {
-            storeData[value.locoNetId] = value;
+        data[ENTITY_SIGNAL].forEach((value) => {
+            storeData[value.signalUId] = value;
         });
         store = {
             ...store,
-            [entityName]: storeData,
+            [ENTITY_SIGNAL]: {
+                ...store[ENTITY_SIGNAL],
+                ...storeData,
+            },
+        }
+
+    }
+
+    [ENTITY_SECTOR, ENTITY_TURNOUT, ENTITY_AB_SECTOR, ENTITY_BI_DIR_AB].forEach((entityName: string) => {
+        const storeData = {};
+        if (data.hasOwnProperty(entityName)) {
+            data[entityName].forEach((value) => {
+                storeData[value.locoNetId] = value;
+            });
+            store = {
+                ...store,
+                [entityName]: storeData,
+            }
         }
     });
     return store;
 };
-
-function objectRetrieve<K extends keyof ObjectState, I extends keyof ObjectState[K], T extends ObjectState[K][I]>
-(id: number, accessKey: K, store: ObjectState, action: ActionMessageRetrieve<T>): ObjectState {
-
-    const {data} = action.message;
-    return {
-        ...store,
-        [accessKey]: {
-            ...store[accessKey],
-            [+id]: data,
-        },
-    };
-}
 
 const initState: ObjectState = {
     [ENTITY_SIGNAL]: {},
@@ -98,7 +82,7 @@ export const objectState = (state: ObjectState = initState, action): ObjectState
     const {type} = action;
     switch (type) {
         case ACTION_MESSAGE_RETRIEVE:
-            return messageRetrieve(state, action);
+            return dumpRetrieve(state, action);
         case ACTION_CONNECTION_CLOSE:
             return initState;
         default:

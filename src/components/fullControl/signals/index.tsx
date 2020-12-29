@@ -1,31 +1,31 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
-import {Store} from '@app/reducers';
-import {MapObjectState} from '@app/reducers/objectState';
+import { connect } from 'react-redux';
+import { Store } from 'app/reducers';
 import Row from './row';
-import {SignalState, SignalTypeDefinition} from '@definitions/signals/interfaces';
-import {getAllSignals} from '@app/consts/signals/';
-import {ENTITY_SIGNAL} from "@definitions/entity";
+import { Signal } from '@definitions/signals/interfaces';
+import { ENTITY_SIGNAL } from '@definitions/entity';
+import { MapObjectState } from 'app/reducers/objectState';
 
 interface StateProps {
-    signalsState: MapObjectState<SignalState>;
+    signalsState: MapObjectState<Signal.State>;
 }
 
 class SignalsTable extends React.Component<StateProps, {}> {
     public render() {
         const {signalsState} = this.props;
+        const rows = [];
+        for (const signalUid in signalsState) {
+            if (signalsState.hasOwnProperty(signalUid)) {
+                rows.push(<Row key={signalUid} signalState={signalsState[signalUid]}/>)
+            }
+        }
         return (
             <div className="row">
-                {this.getSignals().map((signalDef, index) => {
-                    return <Row key={index} signalDef={signalDef} signalState={signalsState[signalDef.locoNetId]}/>;
-                })}
+                {rows}
             </div>
         );
     }
 
-    private getSignals(): SignalTypeDefinition[] {
-        return getAllSignals();
-    }
 }
 
 const mapStateToProps = (state: Store): StateProps => {

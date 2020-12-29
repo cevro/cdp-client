@@ -1,23 +1,24 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {
     Action,
     Dispatch,
 } from 'redux';
-import {Store} from '@app/reducers';
+import { Store } from 'app/reducers';
 import {
     toggleTurnoutText,
     toggleSignalText,
-} from '@app/actions/displayOptions';
-import {displayOptionsState} from '@app/reducers/displayOptions';
-import {signalTypes} from '@definitions/signals/signalTypes';
+} from 'app/actions/displayOptions';
+import { displayOptionsState } from 'app/reducers/displayOptions';
+import { signalTypes } from '@definitions/signals/signalTypes';
+import { Signal } from 'app/consts/signals/interfaces';
 
 interface StateProps {
     displayState: displayOptionsState;
 }
 
 interface DispatchProps {
-    onToggleSignal(type: number): void;
+    onToggleSignal(type: Signal.Type): void;
 
     onToggleTurnouts(): void;
 }
@@ -29,7 +30,7 @@ class Options extends React.Component<StateProps & DispatchProps, {}> {
         return (<div className="card-body row">
             <div className="col-6">
                 <h6>Toggle label on signals</h6>
-                {signalTypes.getAllTypes().map((type: number) => {
+                {signalTypes.getAllTypes().map((type: Signal.Type) => {
                     return <div className="row" key={type}>
                         <button className="btn btn-link" onClick={() => {
                             this.props.onToggleSignal(type);
@@ -60,7 +61,7 @@ class Options extends React.Component<StateProps & DispatchProps, {}> {
 
 const mapDispatchToProps = (dispatch: Dispatch<Action<string>>): DispatchProps => {
     return {
-        onToggleSignal: (type: number) => dispatch(toggleSignalText(type)),
+        onToggleSignal: (type: Signal.Type) => dispatch(toggleSignalText(type)),
         onToggleTurnouts: () => dispatch(toggleTurnoutText()),
     };
 };

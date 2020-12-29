@@ -1,18 +1,18 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {Store} from '@app/reducers';
+import {Store} from 'app/reducers';
 import {
     Action,
     Dispatch,
 } from 'redux';
-import {MapObjectState} from '@app/reducers/objectState';
+import {MapObjectState} from 'app/reducers/objectState';
 import {
     TurnoutPosition,
     RequestedTurnoutPosition, getAllTurnouts,
 } from '@definitions/turnouts';
-import {changeTurnout} from '@app/actions/messages';
+import {changeTurnout} from 'app/actions/messages';
 import {ENTITY_TURNOUT} from "@definitions/entity";
-import {TurnoutState} from "@app/consts/interfaces";
+import {TurnoutState} from "app/consts/interfaces";
 
 interface StateProps {
     turnoutsState: MapObjectState<TurnoutState>;

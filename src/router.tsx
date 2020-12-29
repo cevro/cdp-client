@@ -1,7 +1,8 @@
 import * as React from 'react';
-import App from './app';
 import FullControl from './components/fullControl/';
 import MainMenu from './components/mainMenu';
+import { Route, Switch } from 'react-router';
+import Scheme from 'app/components/scheme/scheme';
 
 interface State {
     route: string;
@@ -24,22 +25,22 @@ export default class Router extends React.Component<{}, State> {
     }
 
     public render() {
-        let accessKey;
-        switch (this.state.route) {
-            case '/full-control':
-                return <FullControl/>;
-            case '/ab-pu-lpm':
-                accessKey = 'ab-PuLpM';
-                break;
-            case '/pu':
-                accessKey = 'ZSTPu';
-                break;
-            default:
-                return <MainMenu/>;
-        }
         return (
-            <App accessKey={accessKey}/>
-        )
+            <Switch>
+                <Route path={'/control/signals'}>
+                    <FullControl/>
+                </Route>
+                <Route path={'/control/turnouts'}>
+                    <FullControl/>
+                </Route>
+                <Route path={'/layout/:layout'}>
+                    <Scheme/>
+                </Route>
+                <Route>
+                    <MainMenu/>
+                </Route>
+            </Switch>
+        );
     }
 }
 
