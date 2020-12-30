@@ -1,4 +1,4 @@
-import { Signal } from '@definitions/signals/interfaces';
+import { BackendSignal } from '@definitions/interfaces';
 
 export namespace FrontendSignal {
 
@@ -14,7 +14,7 @@ export namespace FrontendSignal {
     export type LightColor = 'yellow' | 'green' | 'red' | 'white' | 'black' | 'blue';
     export type LightState = 'off' | 'flash' | 'blink';
 
-    export const getColorById = (type: Signal.Light): LightColor => {
+    export const getColorById = (type: BackendSignal.Light): LightColor => {
         switch (type) {
             case 'HZ':
             case 'DZ':
@@ -32,7 +32,7 @@ export namespace FrontendSignal {
         }
     }
 
-    export const getColorCallBack = (type: Signal.Light, state: number): string => {
+    export const getColorCallBack = (type: BackendSignal.Light, state: number): string => {
         const className = 'signal-light ';
         if (state === undefined || state === -1) {
             return className + 'undefined';

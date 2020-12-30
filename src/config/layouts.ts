@@ -1,8 +1,8 @@
-import { TurnoutSchemeDefinition } from '@definitions/turnouts';
-import { SectorDefinition } from '@definitions/sectors';
 import { AutoBlockSectorFrontEndDefinition, layout as layout1 } from './layouts/linePuLpM';
 import { layout as layout2 } from './layouts/zstPu';
 import { FrontendSignal } from 'app/middleware/fronendSignal';
+import { FrontendTurnout } from 'app/middleware/frontendTurnout';
+import { FrontendSector } from 'app/middleware/frontendSecotr';
 
 export interface LayoutDefinition {
     id: string;
@@ -17,9 +17,9 @@ export interface LayoutDefinition {
         routes: boolean;
     };
     objects: {
-        sectors: SectorDefinition[]
+        sectors: FrontendSector.LayoutDefinition[]
         signals: FrontendSignal.LayoutDefinition[];
-        turnouts: TurnoutSchemeDefinition[];
+        turnouts: FrontendTurnout.LayoutDefinition[];
         ABSectors: AutoBlockSectorFrontEndDefinition[];
         biDirAB: BiDirABDefinition[];
     };

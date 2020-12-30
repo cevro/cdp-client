@@ -46,7 +46,7 @@ const sectorSelect = (state: State, action: ActionRouteBuilderSelect): State => 
     }
 };
 
-const registerRoutes = (state: State, action: ActionMessageRetrieve<{ routes: any[] }>): State => {
+const registerRoutes = (state: State, action: ActionMessageRetrieve): State => {
     /*
     if (action.message.entity === 'route-finder' && action.message.action === 'found') {
         return {

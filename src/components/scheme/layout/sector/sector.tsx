@@ -1,22 +1,18 @@
 import * as React from 'react';
 import { Store } from 'app/reducers';
 import { connect } from 'react-redux';
-import { getSectorState } from 'app/middleware/objectState';
+import { getSectorByUId } from 'app/middleware/objectState';
 import { sectorSelect } from 'app/actions/routeBuilder';
-import {
-    SECTOR_STATE_FREE,
-    SECTOR_STATE_OCCUPIED,
-} from '../../../MessageBox/sectorsPreview';
-import { SectorDefinition } from '@definitions/sectors';
-import { SectorState } from '@definitions/interfaces';
+import { BackendSector } from 'app/consts/interfaces';
 import { Action, Dispatch } from 'redux';
+import { FrontendSector } from 'app/middleware/frontendSecotr';
 
 interface OwnProps {
-    definition: SectorDefinition;
+    definition: FrontendSector.LayoutDefinition;
 }
 
 interface StateProps {
-    stateObject: SectorState;
+    stateObject: BackendSector.Snapshot;
 }
 
 interface DispatchProps {
@@ -25,36 +21,33 @@ interface DispatchProps {
 
 class Sector extends React.Component<OwnProps & StateProps & DispatchProps, {}> {
     public render() {
-        let {definition: {SVGData, id, name}, stateObject, onSectorClick} = this.props;
+        let {definition: {SVGData}, stateObject, onSectorClick} = this.props;
         return (
             <g className={'sector ' + this.getStatusClassName(stateObject)} onClick={() => {
-                onSectorClick(id);
+                onSectorClick(stateObject.sectorId);
             }}>
                 {SVGData.points.map((points, index) => {
                     return (<polyline key={index} points={points}/>)
                 })}
-                {SVGData.label &&
+                {stateObject && stateObject.name &&
                 <g transform={'translate(' + (SVGData.label.x) + ',' + (SVGData.label.y) + ')'}>
                     <rect x="-20" width="40" y="-10" height="20" fill="black"/>
-                    <text textAnchor="middle" alignmentBaseline="middle">{name}</text>
+                    <text textAnchor="middle" alignmentBaseline="middle">{stateObject.name}</text>
                 </g>
                 }
             </g>
         );
     }
 
-    private getStatusClassName(stateObject: SectorState) {
+    private getStatusClassName(stateObject: BackendSector.Snapshot) {
         if (!stateObject) {
             return 'undefined';
         }
 
         switch (stateObject.state) {
-            case SECTOR_STATE_FREE :
-                if (stateObject.locked) {
-                    return 'in-train-route';
-                }
+            case 'free' :
                 return 'free';
-            case SECTOR_STATE_OCCUPIED :
+            case 'busy' :
                 return 'used';
             default:
                 return 'undefined';
@@ -64,7 +57,7 @@ class Sector extends React.Component<OwnProps & StateProps & DispatchProps, {}> 
 
 const mapStateToProps = (state: Store, ownProps: OwnProps): StateProps => {
     return {
-        stateObject: getSectorState(state, ownProps.definition.id),
+        stateObject: getSectorByUId(state, ownProps.definition.sectorUId),
     };
 };
 

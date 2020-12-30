@@ -1,37 +1,31 @@
 import * as React from 'react';
-import {TurnoutDefinition} from '@definitions/turnouts';
 import TurnoutChange from './turnoutChange';
-import {TurnoutState} from "app/consts/interfaces";
+import { BackendTurnout } from 'app/consts/interfaces';
 
 interface OwnProps {
-    turnoutDef: TurnoutDefinition;
-    turnoutState: TurnoutState;
+    turnoutState: BackendTurnout.Snapshot;
 }
 
 export default class Row extends React.Component<OwnProps, {}> {
     public render() {
-        const {turnoutDef, turnoutState} = this.props;
-        const position = turnoutState ? turnoutState.position : undefined;
+        const {turnoutState} = this.props;
+        const position = turnoutState ? turnoutState.currentPosition : undefined;
         const requestedPosition = turnoutState ? turnoutState.requestedPosition : undefined;
-        const locked = turnoutState ? turnoutState.locked : [];
         return <tr>
             <td>
 
                 <div className="col-12 text-center">
                     <h1>
-                        <span>{turnoutDef.name}</span>
+                        <span>{turnoutState.name}</span>
                     </h1>
                 </div>
                 <hr/>
                 <div className="col-12 row">
-                    <span className="col-3">locoNetId: {turnoutDef.locoNetId}</span>
-                    <span className="col-3">sector: {turnoutDef.sector}</span>
                     <span className="col-3">position: {position}</span>
                     <span className="col-3">requested position: {requestedPosition}</span>
-                    <span className="col-12">{locked.join(' ')}</span>
                 </div>
                 <hr/>
-                <TurnoutChange locoNetId={turnoutDef.locoNetId} turnoutState={turnoutState}/>
+                <TurnoutChange turnoutState={turnoutState}/>
             </td>
 
         </tr>;

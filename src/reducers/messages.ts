@@ -1,21 +1,19 @@
-import {
-    ACTION_MESSAGE_RETRIEVE,
-    ActionMessageRetrieve,
-} from '../actions/webSocets';
-import {Message} from '@definitions/messages';
+import { ACTION_FETCH_SUCCESS, ActionFetchSuccess } from 'app/fetchApi/actions';
 
-const messageRetrieve = (state, action: ActionMessageRetrieve) => {
-    const newMessages = [action.message, ...state];
-    if (newMessages.length > 20) {
-        newMessages.pop();
-    }
-    return newMessages;
+export interface ResponseMessage {
+    message: string;
+}
+
+export type State = ResponseMessage[];
+
+const messageRetrieve = (state: State, action: ActionFetchSuccess<any>): State => {
+    return [action.data, ...state];
 };
 
-export const messages = (state: Message[] = [], action) => {
+export const messages = (state: State = [], action): State => {
     const {type} = action;
     switch (type) {
-        case ACTION_MESSAGE_RETRIEVE:
+        case ACTION_FETCH_SUCCESS:
             return messageRetrieve(state, action);
         default:
             return state;

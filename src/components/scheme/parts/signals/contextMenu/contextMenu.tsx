@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Icon from './icon';
-import { getSignalByUid } from 'app/middleware/objectState';
+import { getSignalByUId } from 'app/middleware/objectState';
 import { connect } from 'react-redux';
 import { Store } from 'app/reducers';
 import {
@@ -8,7 +8,7 @@ import {
     Dispatch,
 } from 'redux';
 import { toggleContextMenu } from 'app/actions/signalContextMenu';
-import { Signal } from 'app/consts/signals/interfaces';
+import { BackendSignal } from 'app/consts/interfaces';
 
 interface OwnProps {
 }
@@ -19,7 +19,7 @@ interface DispatchProps {
 
 interface StateProps {
     signalUId: string | null;
-    stateObject: Signal.State;
+    stateObject: BackendSignal.Snapshot;
     coordinates: {
         x: number;
         y: number;
@@ -66,7 +66,7 @@ const mapStateToProps = (state: Store): StateProps => {
     return {
         signalUId: state.signalContextMenu.signalUId,
         coordinates: state.signalContextMenu.coordinates,
-        stateObject: getSignalByUid(state, state.signalContextMenu.signalUId),
+        stateObject: getSignalByUId(state, state.signalContextMenu.signalUId),
     };
 };
 const mapDispatchToProps = (dispatch: Dispatch<Action<string>>): DispatchProps => {

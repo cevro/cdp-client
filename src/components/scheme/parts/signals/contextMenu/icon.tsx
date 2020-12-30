@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Signal } from '@definitions/signals/interfaces';
+import { BackendSignal } from '@definitions/interfaces';
 import { FrontendSignal } from 'app/middleware/fronendSignal';
 
 interface OwnProps {
-    signal: Signal.State,
+    signal: BackendSignal.Snapshot,
     state: number;
 }
 
@@ -237,7 +237,7 @@ export default class Icon extends React.Component<OwnProps, {}> {
         }
     }
 
-    private getStageLabel(type: Signal.Type): JSX.Element {
+    private getStageLabel(type: BackendSignal.Type): JSX.Element {
         const width = 10;
         switch (type) {
             case 'entry':

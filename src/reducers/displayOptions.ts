@@ -3,11 +3,11 @@ import {
     ACTION_TOGGLE_SIGNAL_TEXT,
     ToggleSignalAction,
 } from '../actions/displayOptions';
-import { Signal } from 'app/consts/signals/interfaces';
+import { BackendSignal } from 'app/consts/interfaces';
 
 export interface displayOptionsState {
     signals: {
-        [type in Signal.Type]?: boolean;
+        [type in BackendSignal.Type]?: boolean;
     };
     points: boolean;
 }

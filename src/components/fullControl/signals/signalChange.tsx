@@ -6,14 +6,14 @@ import {
 } from 'redux';
 import { changeSignal } from 'app/actions/messages';
 import { FrontendSignal } from 'app/middleware/fronendSignal';
-import { Signal } from 'app/consts/signals/interfaces';
+import { BackendSignal } from 'app/consts/interfaces';
 
 interface StateProps {
     onChangeSignal(state: number): void;
 }
 
 interface OwnProps {
-    signalState: Signal.State | null;
+    signalState: BackendSignal.Snapshot | null;
     signalId: number
 }
 

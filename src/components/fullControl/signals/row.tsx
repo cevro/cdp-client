@@ -2,11 +2,10 @@ import * as React from 'react';
 import SignalChange from './signalChange';
 import Icon from 'app/components/scheme/parts/signals/contextMenu/icon';
 import { FrontendSignal } from 'app/middleware/fronendSignal';
-import { signalTypes } from '@definitions/signals/signalTypes';
-import { Signal } from '@definitions/signals/interfaces';
+import { BackendSignal } from '@definitions/interfaces';
 
 interface OwnProps {
-    signalState: Signal.State;
+    signalState: BackendSignal.Snapshot;
 }
 
 export default class Row extends React.Component<OwnProps, {}> {
@@ -24,7 +23,7 @@ export default class Row extends React.Component<OwnProps, {}> {
                     <span className="col-3">Id: {signalState.signalId}</span>
                     <span className="col-3">name: {signalState.name}</span>
                     <span className="col-3">conf: {signalState.lights.join(' ')}</span>
-                    <span className="col-3">type: {signalTypes.getLabel(signalState.type)}</span>
+                    <span className="col-3">type: {signalState.type}</span>
                 </div>
                 <hr/>
                 <div className="col-12 row">

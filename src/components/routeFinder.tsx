@@ -2,16 +2,15 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Action, Dispatch } from 'redux';
 import { Store } from '../reducers';
-import { sectors } from '@definitions/sectors';
 import { findRoute } from '../actions/routeBuilder';
 import { ENTITY_SIGNAL } from 'app/consts/entity';
-import { Signal } from 'app/consts/signals/interfaces';
+import { BackendSignal } from 'app/consts/interfaces';
 import { MapObjectState } from 'app/reducers/objectState';
 
 interface StateProps {
     startSignal: number;
     endSector: number;
-    signals: MapObjectState<Signal.State>;
+    signals: MapObjectState<BackendSignal.Snapshot>;
 }
 
 interface DispatchProps {

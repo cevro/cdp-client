@@ -1,11 +1,11 @@
-import { SectorDefinition } from 'app/consts/sectors';
 import { ABSectors, AutoBlockSectorDefinition } from 'app/consts/ABSectors/ABSectors';
 import { signals } from 'app/config/layouts/linePuLpM/signals';
 import { LayoutDefinition } from 'app/config/layouts';
+import { FrontendSector } from 'app/middleware/frontendSecotr';
 
 export type AutoBlockSectorFrontEndDefinition = AutoBlockSectorDefinition;
 
-const sectors1: SectorDefinition[] = [
+const sectors1: FrontendSector.LayoutDefinition[] = [
     {
         name: '',
         id: 101,
@@ -113,7 +113,7 @@ const sectors1: SectorDefinition[] = [
     },
 ];
 
-const sectors2: SectorDefinition[] = [
+const sectors2: FrontendSector.LayoutDefinition[] = [
     {
         name: '',
         id: 102,

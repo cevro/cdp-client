@@ -6,8 +6,6 @@ import {
 import {
     ABSectorState,
     BiDirABState,
-    SectorState,
-    TurnoutState,
 } from '@definitions/interfaces';
 
 import {
@@ -17,10 +15,10 @@ import {
     ENTITY_SIGNAL,
     ENTITY_TURNOUT,
 } from '@definitions/entity';
-import { Signal } from 'app/consts/signals/interfaces';
+import { BackendSector, BackendSignal, BackendTurnout } from 'app/consts/interfaces';
 
-export interface MapObjectState<T> {
-    [id: number]: T;
+export type MapObjectState<T> = {
+    [id in string | number]: T;
 }
 
 interface OS<O = any> {
@@ -28,9 +26,9 @@ interface OS<O = any> {
 }
 
 export interface ObjectState extends OS {
-    [ENTITY_SIGNAL]: MapObjectState<Signal.State>;
-    [ENTITY_SECTOR]: MapObjectState<SectorState>;
-    [ENTITY_TURNOUT]: MapObjectState<TurnoutState>;
+    [ENTITY_SIGNAL]: MapObjectState<BackendSignal.Snapshot>;
+    [ENTITY_SECTOR]: MapObjectState<BackendSector.Snapshot>;
+    [ENTITY_TURNOUT]: MapObjectState<BackendTurnout.Snapshot>;
     [ENTITY_AB_SECTOR]: MapObjectState<ABSectorState>;
     [ENTITY_BI_DIR_AB]: MapObjectState<BiDirABState>;
 
@@ -52,10 +50,35 @@ const dumpRetrieve = (store: ObjectState, action: ActionMessageRetrieve): Object
                 ...storeData,
             },
         }
-
+    }
+    if (data.hasOwnProperty(ENTITY_TURNOUT)) {
+        const storeData = {};
+        data[ENTITY_TURNOUT].forEach((value) => {
+            storeData[value.turnoutUId] = value;
+        });
+        store = {
+            ...store,
+            [ENTITY_TURNOUT]: {
+                ...store[ENTITY_TURNOUT],
+                ...storeData,
+            },
+        }
+    }
+    if (data.hasOwnProperty(ENTITY_SECTOR)) {
+        const storeData = {};
+        data[ENTITY_SECTOR].forEach((value) => {
+            storeData[value.sectorUId] = value;
+        });
+        store = {
+            ...store,
+            [ENTITY_SECTOR]: {
+                ...store[ENTITY_SECTOR],
+                ...storeData,
+            },
+        }
     }
 
-    [ENTITY_SECTOR, ENTITY_TURNOUT, ENTITY_AB_SECTOR, ENTITY_BI_DIR_AB].forEach((entityName: string) => {
+    [ENTITY_AB_SECTOR, ENTITY_BI_DIR_AB].forEach((entityName: string) => {
         const storeData = {};
         if (data.hasOwnProperty(entityName)) {
             data[entityName].forEach((value) => {

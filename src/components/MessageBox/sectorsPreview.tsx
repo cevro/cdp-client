@@ -1,31 +1,27 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
-import {Store} from 'app/reducers';
+import { connect } from 'react-redux';
+import { Store } from 'app/reducers';
 import {
     Action,
     Dispatch,
 } from 'redux';
-import {MapObjectState} from 'app/reducers/objectState';
-import {changeSector} from 'app/actions/messages';
-import {SectorDefinition} from '@definitions/sectors';
-import {ENTITY_SECTOR} from "@definitions/entity";
-import {SectorState} from "app/consts/interfaces";
+import { MapObjectState } from 'app/reducers/objectState';
+import { changeSector } from 'app/actions/messages';
+import { ENTITY_SECTOR } from '@definitions/entity';
+import { BackendSector } from 'app/consts/interfaces';
+import { FrontendSector } from 'app/middleware/frontendSecotr';
 
 interface OwnProps {
-    sectors: SectorDefinition[];
+    sectors: FrontendSector.LayoutDefinition[];
 }
 
 interface DispatchProps {
-    onChangeSector(id: number, state: number): void;
+    onChangeSector(id: number, state: BackendSector.State): void;
 }
 
 interface StateProps {
-    sectorsState: MapObjectState<SectorState>;
+    sectorsState: MapObjectState<BackendSector.Snapshot>;
 }
-
-export const SECTOR_STATE_OCCUPIED = 2;
-export const SECTOR_STATE_FREE = 1;
-export const SECTOR_STATE_UNDEFINED = -1;
 
 class SectorsPreview extends React.Component<StateProps & DispatchProps & OwnProps, {}> {
 
@@ -37,22 +33,22 @@ class SectorsPreview extends React.Component<StateProps & DispatchProps & OwnPro
                 {sectors.map((sectorDef, index) => {
                     // sectorsState[id];
                     // sectorDef.id;
-                    const state = sectorsState[sectorDef.id] ? sectorsState[sectorDef.id].state : undefined;
-                    const locked = sectorsState[sectorDef.id] ? sectorsState[sectorDef.id].locked : null;
-
-                    return <div className={'list-group-item ' + this.getClassNameByState(state)} key={index}>
+                    const state: BackendSector.Snapshot = sectorsState[sectorDef.sectorUId] ? sectorsState[sectorDef.sectorUId] : undefined;
+                    //const locked = sectorsState[sectorDef.id] ? sectorsState[sectorDef.id].locked : null;
+                    if (!state) {
+                        return null;
+                    }
+                    return <div className={'list-group-item ' + this.getClassNameByState(state.state)} key={index}>
                         <div className="row">
-                            <span className="col-2">{sectorDef.id}</span>
-                            <span className="col-2">{sectorDef.name}</span>
+                            <span className="col-2">{state.sectorId}</span>
+                            <span className="col-2">{state.name}</span>
                             <span className="col-2">
-                                {this.getStateLabel(state)}
+                                {this.getStateLabel(state.state)}
                             </span>
                             <div className="col-3">
-                                {this.getButton(sectorDef.id, state)}
+                                {this.getButton(state.sectorId, state.state)}
                             </div>
-                            <div className="col-3">
-                                {locked}
-                            </div>
+                            <div className="col-3"/>
                         </div>
                     </div>
                 })}
@@ -60,16 +56,16 @@ class SectorsPreview extends React.Component<StateProps & DispatchProps & OwnPro
         )
     }
 
-    private getStateLabel(state: number): JSX.Element {
+    private getStateLabel(state: BackendSector.State): JSX.Element {
         if (state === undefined) {
             return <span className="badge badge-undefined">NA</span>;
         }
         switch (state) {
-            case SECTOR_STATE_OCCUPIED:
+            case 'busy':
                 return <span className="badge badge-danger">OCCUPIED</span>;
-            case SECTOR_STATE_FREE:
+            case 'free':
                 return <span className="badge badge-success">FREE</span>;
-            case SECTOR_STATE_UNDEFINED:
+            case 'undefined':
                 return <span className="badge badge-undefined">NA</span>;
             default:
                 return <span className="badge badge-secondary">WTF</span>;
@@ -77,19 +73,19 @@ class SectorsPreview extends React.Component<StateProps & DispatchProps & OwnPro
 
     }
 
-    private getButton(id: number, state: number): JSX.Element[] {
+    private getButton(id: number, state: BackendSector.State): JSX.Element[] {
         const buttons = [];
-        if (state !== SECTOR_STATE_FREE) {
+        if (state !== 'free') {
             buttons.push(<button key={0} className="btn btn-success btn-sm"
                                  onClick={() => {
-                                     this.props.onChangeSector(id, SECTOR_STATE_FREE)
+                                     this.props.onChangeSector(id, 'free')
                                  }}
             >Set free</button>);
         }
-        if (state !== SECTOR_STATE_OCCUPIED) {
+        if (state !== 'busy') {
             buttons.push(<button key={1} className="btn btn-danger btn-sm"
                                  onClick={() => {
-                                     this.props.onChangeSector(id, SECTOR_STATE_OCCUPIED)
+                                     this.props.onChangeSector(id, 'busy')
                                  }}
             >Set busy</button>)
         }
@@ -97,16 +93,16 @@ class SectorsPreview extends React.Component<StateProps & DispatchProps & OwnPro
         return buttons;
     }
 
-    private getClassNameByState(state: number) {
+    private getClassNameByState(state: BackendSector.State) {
         if (state === undefined) {
             return 'list-item-undefined';
         }
         switch (state) {
-            case SECTOR_STATE_OCCUPIED:
+            case 'busy':
                 return 'list-item-danger';
-            case SECTOR_STATE_FREE:
+            case 'free':
                 return 'list-item-success';
-            case SECTOR_STATE_UNDEFINED:
+            case 'undefined':
                 return 'list-item-undefined';
             default:
                 return 'list-item-secondary';

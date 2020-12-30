@@ -4,12 +4,12 @@ import {
     connectionClose,
     onMessageRetrieve,
 } from 'app/actions/webSocets';
-import { Message } from '@definitions/messages';
+import { WebSocketStateUpdateMessage } from '@definitions/messages';
 import { Dispatch, Action } from 'redux';
 
 interface DispatchProps {
 
-    onMessage(data: Message): void;
+    onMessage(data: WebSocketStateUpdateMessage): void;
 
     onConnectionClose(): void;
 }
@@ -48,7 +48,7 @@ class Downloader extends React.Component<DispatchProps, {}> {
         const url = 'ws://' + wsServer + ':8081/';
         this.ws = new WebSocket(url, 'echo-protocol');
         this.ws.onmessage = ({data}) => {
-            const parsedData: Message = JSON.parse(data);
+            const parsedData: WebSocketStateUpdateMessage = JSON.parse(data);
             this.props.onMessage(parsedData);
         };
         this.ws.onclose = () => {

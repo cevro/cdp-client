@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { messages } from './messages';
+import { messages, State as MessagesState } from './messages';
 import {
     ObjectState,
     objectState,
@@ -32,6 +32,6 @@ export interface Store {
     objectState: ObjectState;
     signalContextMenu: SignalContextState
     routeBuilder: RouteBuilderState;
-    messages: any[];
+    messages: MessagesState;
     fetchApi: FetchApiState;
 }

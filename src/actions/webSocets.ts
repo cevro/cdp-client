@@ -1,13 +1,13 @@
-import { Message } from '@definitions/messages';
+import { WebSocketStateUpdateMessage } from '@definitions/messages';
 import { Action } from 'redux';
 
 export const ACTION_MESSAGE_RETRIEVE = 'ACTION_MESSAGE_RETRIEVE';
 
-export interface ActionMessageRetrieve<D = any> extends Action<string> {
-    message: Message<D>;
+export interface ActionMessageRetrieve extends Action<string> {
+    message: WebSocketStateUpdateMessage;
 }
 
-export function onMessageRetrieve<D = any>(message: Message<D>): ActionMessageRetrieve<D> {
+export const onMessageRetrieve = (message: WebSocketStateUpdateMessage): ActionMessageRetrieve => {
     return {
         type: ACTION_MESSAGE_RETRIEVE,
         message,

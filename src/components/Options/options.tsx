@@ -10,15 +10,14 @@ import {
     toggleSignalText,
 } from 'app/actions/displayOptions';
 import { displayOptionsState } from 'app/reducers/displayOptions';
-import { signalTypes } from '@definitions/signals/signalTypes';
-import { Signal } from 'app/consts/signals/interfaces';
+import { BackendSignal } from 'app/consts/interfaces';
 
 interface StateProps {
     displayState: displayOptionsState;
 }
 
 interface DispatchProps {
-    onToggleSignal(type: Signal.Type): void;
+    onToggleSignal(type: BackendSignal.Type): void;
 
     onToggleTurnouts(): void;
 }
@@ -30,7 +29,7 @@ class Options extends React.Component<StateProps & DispatchProps, {}> {
         return (<div className="card-body row">
             <div className="col-6">
                 <h6>Toggle label on signals</h6>
-                {signalTypes.getAllTypes().map((type: Signal.Type) => {
+                {['entry', 'exit', 'path', 'auto_block', 'shunt'].map((type: BackendSignal.Type) => {
                     return <div className="row" key={type}>
                         <button className="btn btn-link" onClick={() => {
                             this.props.onToggleSignal(type);
@@ -38,7 +37,7 @@ class Options extends React.Component<StateProps & DispatchProps, {}> {
                     <span
                         className={displayState.signals[type] ? 'text-success fa fa-check-square-o' : 'text-danger fa fa-square-o'}/>
                             <span
-                                className={'ml-3 badge signal-badge-' + type}>{signalTypes.getLabel(type)}</span>
+                                className={'ml-3 badge signal-badge-' + type}>{type}</span>
                         </button>
                     </div>
                 })
@@ -61,7 +60,7 @@ class Options extends React.Component<StateProps & DispatchProps, {}> {
 
 const mapDispatchToProps = (dispatch: Dispatch<Action<string>>): DispatchProps => {
     return {
-        onToggleSignal: (type: Signal.Type) => dispatch(toggleSignalText(type)),
+        onToggleSignal: (type: BackendSignal.Type) => dispatch(toggleSignalText(type)),
         onToggleTurnouts: () => dispatch(toggleTurnoutText()),
     };
 };

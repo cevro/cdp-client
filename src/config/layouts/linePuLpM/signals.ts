@@ -1,4 +1,3 @@
-
 import { FrontendSignal } from 'app/middleware/fronendSignal';
 
 export const signals: FrontendSignal.LayoutDefinition[] = [

@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { signalSelect } from 'app/actions/routeBuilder';
 import { toggleContextMenu } from 'app/actions/signalContextMenu';
 import { Store } from 'app/reducers';
-import { getSignalByUid } from 'app/middleware/objectState';
+import { getSignalByUId } from 'app/middleware/objectState';
 import {
     Action,
     Dispatch,
 } from 'redux';
-import { Signal as SignalInterface } from 'app/consts/signals/interfaces';
+import { BackendSignal } from 'app/consts/interfaces';
 import './signal.scss';
 import { FrontendSignal } from 'app/middleware/fronendSignal';
 
@@ -17,7 +17,7 @@ interface OwnProps {
 }
 
 interface StateProps {
-    state: SignalInterface.State;
+    state: BackendSignal.Snapshot;
     displayLabel: boolean;
 }
 
@@ -61,7 +61,7 @@ class Signal extends React.Component<OwnProps & StateProps & DispatchProps, {}> 
         );
     }
 
-    private getIconByType(type: SignalInterface.Type | 'undefined', rotate: number): JSX.Element {
+    private getIconByType(type: BackendSignal.Type | 'undefined', rotate: number): JSX.Element {
         switch (type) {
             case 'shunt':
                 return <polyline
@@ -108,7 +108,7 @@ class Signal extends React.Component<OwnProps & StateProps & DispatchProps, {}> 
 }
 
 const mapStateToProps = (state: Store, ownProps: OwnProps): StateProps => {
-    const signalState = getSignalByUid(state, ownProps.definition.signalUId);
+    const signalState = getSignalByUId(state, ownProps.definition.signalUId);
     return {
         state: signalState,
         displayLabel: signalState ? !!state.displayOptions.signals[signalState.type] : true,
