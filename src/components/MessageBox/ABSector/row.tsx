@@ -1,6 +1,5 @@
 import * as React from 'react';
-import {ABSectorState} from '@definitions/interfaces';
-import {Store} from 'app/reducers';
+import { Store } from 'app/reducers';
 import {
     Action,
     Dispatch,
@@ -9,19 +8,18 @@ import {
     changeABCondition,
     removeABError,
 } from 'app/actions/messages/ABSector';
-import {connect} from 'react-redux';
-import { MapObjectState} from 'app/reducers/objectState';
-import {ENTITY_AB_SECTOR} from "@definitions/entity";
+import { connect } from 'react-redux';
 import { AutoBlockSectorFrontEndDefinition } from 'app/config/layouts/linePuLpM';
+import { MapObjects } from 'app/consts/messages';
 
 interface OwnProps {
     definition: AutoBlockSectorFrontEndDefinition;
-    objectState: ABSectorState;
+    objectState: any;
     displayOnlyInterest: boolean;
 }
 
 interface StateProps {
-    ABSectorsState: MapObjectState<ABSectorState>;
+    ABSectorsState: MapObjects<any>;
 }
 
 interface DispatchProps {
@@ -93,10 +91,10 @@ class Row extends React.Component<OwnProps & StateProps & DispatchProps, State> 
                         </button>
                     }
                 </div>)}
-        </div>
+        </div>;
     }
 
-    private getListClassName(objectState: ABSectorState) {
+    private getListClassName(objectState: any) {
         if (!objectState) {
             return 'list-item-undefined';
         }
@@ -119,7 +117,7 @@ class Row extends React.Component<OwnProps & StateProps & DispatchProps, State> 
 
     }
 
-    private getStateLabel(objectState: ABSectorState) {
+    private getStateLabel(objectState: any) {
 
         if (!objectState) {
             return <span className="badge badge-undefined">undefined</span>;
@@ -134,7 +132,7 @@ class Row extends React.Component<OwnProps & StateProps & DispatchProps, State> 
         }
     }
 
-    private getActiveLabel(objectState: ABSectorState): JSX.Element {
+    private getActiveLabel(objectState: any): JSX.Element {
         if (!objectState) {
             return <span className="badge badge-undefined">undefined</span>;
         }
@@ -148,7 +146,7 @@ class Row extends React.Component<OwnProps & StateProps & DispatchProps, State> 
         }
     }
 
-    private getErrorLabel(objectState: ABSectorState): JSX.Element {
+    private getErrorLabel(objectState: any): JSX.Element {
         if (!objectState) {
             return <span className="badge badge-undefined">undefined</span>;
         }
@@ -162,7 +160,7 @@ class Row extends React.Component<OwnProps & StateProps & DispatchProps, State> 
         }
     }
 
-    private getBlockConditionLabel(objectState: ABSectorState): JSX.Element {
+    private getBlockConditionLabel(objectState: any): JSX.Element {
         if (!objectState) {
             return <span className="badge badge-undefined">undefined</span>;
         }
@@ -179,7 +177,7 @@ class Row extends React.Component<OwnProps & StateProps & DispatchProps, State> 
 
 const mapStateToProps = (state: Store): StateProps => {
     return {
-        ABSectorsState: state.objectState[ENTITY_AB_SECTOR],
+        ABSectorsState: null,
     };
 };
 const mapDispatchToProps = (dispatch: Dispatch<Action<string>>, ownProps: OwnProps): DispatchProps => {

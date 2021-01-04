@@ -1,10 +1,11 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
-import {Store} from 'app/reducers';
-import {TrainRouteDump} from '@definitions/interfaces';
+import { connect } from 'react-redux';
+import { Store } from 'app/reducers';
+import { BackendRouteLock } from 'app/consts/interfaces/routeLock';
+import { BackedRouteBuilder } from 'app/consts/interfaces/routeBuilder';
 
 interface StateProps {
-    trainRoute: TrainRouteDump;
+    routeBuilder: BackedRouteBuilder.Snapshot;
 }
 
 class RouteBuilderMessageBox extends React.Component<StateProps, {}> {
@@ -13,19 +14,14 @@ class RouteBuilderMessageBox extends React.Component<StateProps, {}> {
 
         return (<div className="list-group list-scroll">
             <div className="list-group-item">
-                <span className={this.props.trainRoute.locked ? 'fa fa-lock' : 'fa fa-unlock-alt'}/>
-                {this.props.trainRoute.hasError && <>
-                    <span className="badge badge-danger">Error</span>
-                    <button className="btn btn-danger">Clear error</button>
-                </>
-                }
+                <span className={this.props.routeBuilder ? 'fa fa-lock' : 'fa fa-unlock-alt'}/>
             </div>
 
-            {this.props.trainRoute.buffer.map((bufferItem) => {
-                return <div className="list-group-item" key={bufferItem.id}>
+            {this.props.routeBuilder.buffer.map((bufferItem) => {
+                return <div className="list-group-item" key={bufferItem.lockUId}>
                     <div className="row">
-                        <small className="col-3">{bufferItem.id}</small>
-                        <span className="col-2">{bufferItem.name}</span>
+                        <small className="col-3">{bufferItem.lockUId}</small>
+                        <span className="col-2">{bufferItem.routeUId}</span>
                         <div className="col-2">
                             <span className={this.getClassNameByState(bufferItem.state)}>{bufferItem.state}</span>
                         </div>
@@ -36,12 +32,12 @@ class RouteBuilderMessageBox extends React.Component<StateProps, {}> {
                             {bufferItem.buildOptions.alert ? 'alert' : null}
                         </small>
                     </div>
-                </div>
+                </div>;
             })}
         </div>);
     }
 
-    private getClassNameByState(state: string): string {
+    private getClassNameByState(state: BackendRouteLock.State): string {
         switch (state) {
             case 'waiting':
                 return 'badge badge-secondary';
@@ -57,7 +53,7 @@ class RouteBuilderMessageBox extends React.Component<StateProps, {}> {
 
 const mapStateToProps = (store: Store): StateProps => {
     return {
-        trainRoute: store.routeBuilder.routeBuilderState,
+        routeBuilder: store.backendStore.routeBuilder,
     };
 };
 

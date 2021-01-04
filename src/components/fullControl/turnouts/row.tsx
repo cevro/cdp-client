@@ -1,31 +1,28 @@
 import * as React from 'react';
 import TurnoutChange from './turnoutChange';
-import { BackendTurnout } from 'app/consts/interfaces';
+import { BackendTurnout } from 'app/consts/interfaces/turnout';
 
 interface OwnProps {
-    turnoutState: BackendTurnout.Snapshot;
+    state: BackendTurnout.Definition | null;
 }
 
 export default class Row extends React.Component<OwnProps, {}> {
     public render() {
-        const {turnoutState} = this.props;
-        const position = turnoutState ? turnoutState.currentPosition : undefined;
-        const requestedPosition = turnoutState ? turnoutState.requestedPosition : undefined;
+        const {state} = this.props;
         return <tr>
             <td>
-
                 <div className="col-12 text-center">
                     <h1>
-                        <span>{turnoutState.name}</span>
+                        <span>{state.name}</span>
                     </h1>
                 </div>
                 <hr/>
                 <div className="col-12 row">
-                    <span className="col-3">position: {position}</span>
-                    <span className="col-3">requested position: {requestedPosition}</span>
+                    <span className="col-3">position: {state.currentPosition}</span>
+                    <span className="col-3">requested position: {state.requestedPosition}</span>
                 </div>
                 <hr/>
-                <TurnoutChange turnoutState={turnoutState}/>
+                <TurnoutChange state={state}/>
             </td>
 
         </tr>;

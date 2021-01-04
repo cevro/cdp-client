@@ -1,10 +1,6 @@
 import { combineReducers } from 'redux';
 import { messages, State as MessagesState } from './messages';
 import {
-    ObjectState,
-    objectState,
-} from './objectState';
-import {
     routeBuilder,
     State as RouteBuilderState,
 } from './routeBuilder';
@@ -17,21 +13,22 @@ import {
     displayOptionsState,
 } from './displayOptions';
 import { fetchApi, FetchApiState } from '../fetchApi/reducer';
+import { BackendStore, backendStore } from 'app/reducers/backendStore';
 
-export const app = combineReducers({
+export const app = combineReducers<Store>({
     messages,
+    backendStore,
     fetchApi,
-    objectState,
+    displayOptions,
     routeBuilder,
     signalContextMenu,
-    displayOptions,
 });
 
 export interface Store {
-    displayOptions: displayOptionsState;
-    objectState: ObjectState;
-    signalContextMenu: SignalContextState
-    routeBuilder: RouteBuilderState;
     messages: MessagesState;
+    backendStore: BackendStore;
     fetchApi: FetchApiState;
+    displayOptions: displayOptionsState;
+    routeBuilder: RouteBuilderState;
+    signalContextMenu: SignalContextState;
 }

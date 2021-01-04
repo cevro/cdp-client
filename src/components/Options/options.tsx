@@ -10,7 +10,7 @@ import {
     toggleSignalText,
 } from 'app/actions/displayOptions';
 import { displayOptionsState } from 'app/reducers/displayOptions';
-import { BackendSignal } from 'app/consts/interfaces';
+import { BackendSignal } from 'app/consts/interfaces/signal';
 
 interface StateProps {
     displayState: displayOptionsState;
@@ -39,7 +39,7 @@ class Options extends React.Component<StateProps & DispatchProps, {}> {
                             <span
                                 className={'ml-3 badge signal-badge-' + type}>{type}</span>
                         </button>
-                    </div>
+                    </div>;
                 })
                 }
             </div>
@@ -49,7 +49,7 @@ class Options extends React.Component<StateProps & DispatchProps, {}> {
                         this.props.onToggleTurnouts();
                     }}>
                     <span
-                        className={displayState.points ? 'text-success fa fa-check-square-o' : 'text-danger fa fa-square-o'}/>
+                        className={displayState.turnouts ? 'text-success fa fa-check-square-o' : 'text-danger fa fa-square-o'}/>
                         <span className={'ml-3 badge badge-secondary'}>toggle turnouts on</span>
                     </button>
                 </div>

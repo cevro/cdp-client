@@ -9,7 +9,7 @@ export default class MainMenu extends React.Component<{}, {}> {
                 {layouts.map((layout) => {
                     return <li key={layout.id}>
                         <Link to={'/layout/' + layout.id}>{layout.name}</Link>
-                    </li>
+                    </li>;
                 })}
                 <li>
                     <Link to={'/control/turnouts'}>Turnouts</Link>
@@ -18,7 +18,7 @@ export default class MainMenu extends React.Component<{}, {}> {
                     <Link to={'/control/signals'}>Signals</Link>
                 </li>
             </ul>
-        </div>
+        </div>;
     }
 }
 

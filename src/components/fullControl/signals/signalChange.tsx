@@ -6,29 +6,28 @@ import {
 } from 'redux';
 import { changeSignal } from 'app/actions/messages';
 import { FrontendSignal } from 'app/middleware/fronendSignal';
-import { BackendSignal } from 'app/consts/interfaces';
+import { BackendSignal } from 'app/consts/interfaces/signal';
 
 interface StateProps {
     onChangeSignal(state: number): void;
 }
 
 interface OwnProps {
-    signalState: BackendSignal.Snapshot | null;
-    signalId: number
+    state: BackendSignal.Definition;
 }
 
 class SignalChange extends React.Component<StateProps & OwnProps, {}> {
     public render() {
-        const {signalState} = this.props;
+        const {state} = this.props;
         return (
-            <select className={'form-control'} value={signalState ? signalState.displayAspect : -1} onChange={(e) => {
+            <select className={'form-control'} value={state ? state.displayedAspect : -1} onChange={(e) => {
                 if (+e.target.value !== -1) {
                     this.props.onChangeSignal(+e.target.value);
                 }
             }}>
                 {[-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((value) => {
                     return <option key={value}
-                                   value={value}>({value}) {FrontendSignal.signalStateMapping(value)}</option>
+                                   value={value}>({value}) {FrontendSignal.signalStateMapping(value)}</option>;
                 })}
             </select>
         );
@@ -37,7 +36,7 @@ class SignalChange extends React.Component<StateProps & OwnProps, {}> {
 
 const mapDispatchToProps = (dispatch: Dispatch<Action<string>>, ownProps: OwnProps): StateProps => {
     return {
-        onChangeSignal: (aspect) => changeSignal(dispatch, ownProps.signalId, aspect),
+        onChangeSignal: (aspect) => changeSignal(dispatch, ownProps.state.signalUId, aspect),
     };
 };
 

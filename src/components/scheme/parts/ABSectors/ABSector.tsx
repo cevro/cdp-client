@@ -1,8 +1,6 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
-import {Store} from 'app/reducers';
-import {getABSectorState} from 'app/middleware/objectState';
-import {ABSectorState} from '@definitions/interfaces';
+import { connect } from 'react-redux';
+import { Store } from 'app/reducers';
 import { AutoBlockSectorFrontEndDefinition } from 'app/config/layouts/linePuLpM';
 
 interface OwnProps {
@@ -10,7 +8,7 @@ interface OwnProps {
 }
 
 interface StateProps {
-    stateObject: ABSectorState;
+    stateObject: any;
 }
 
 class ABSector extends React.Component<OwnProps & StateProps, {}> {
@@ -52,7 +50,7 @@ class ABSector extends React.Component<OwnProps & StateProps, {}> {
 
     private getErrorClassName(state: number | null): string {
         if (state === undefined) {
-            return 'undefined'
+            return 'undefined';
         }
         switch (state) {
             case -1:
@@ -68,7 +66,7 @@ class ABSector extends React.Component<OwnProps & StateProps, {}> {
 
     private getStateClassName(state: number | null): string {
         if (state === undefined) {
-            return 'undefined'
+            return 'undefined';
         }
         switch (state) {
             case -1:
@@ -76,14 +74,14 @@ class ABSector extends React.Component<OwnProps & StateProps, {}> {
             case 1:
                 return 'occupied';
             case 2:
-                return 'free'
+                return 'free';
         }
     }
 }
 
 const mapStateToProps = (state: Store, ownProps: OwnProps): StateProps => {
     return {
-        stateObject: getABSectorState(state, ownProps.definition.locoNetId),
+        stateObject: null,// getABSectorState(state, ownProps.definition.locoNetId.toString()),
     };
 };
 

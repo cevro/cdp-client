@@ -9,11 +9,10 @@ interface OwnProps {
 export default class ABSectors extends React.Component<OwnProps, {}> {
 
     public render() {
-
-        return (<>
+        return <>
             {this.props.autoBlockSectors.map((sector, key) => {
                 return <AutoBlockSector key={key} definition={sector}/>;
             })}
-        </>)
+        </>;
     }
 }

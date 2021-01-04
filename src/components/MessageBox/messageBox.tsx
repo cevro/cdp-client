@@ -10,7 +10,7 @@ interface StateProps {
 class MessageBox extends React.Component<StateProps, {}> {
     public render() {
         const {messages} = this.props;
-        const msgs = messages.map((message, index) => {
+        const messageRows = messages.map((message, index) => {
             const dateObject = new Date();
             return (<div className="list-group-item" key={index}>
                 <div className="row">
@@ -25,10 +25,8 @@ class MessageBox extends React.Component<StateProps, {}> {
             </div>);
         });
         return (<div className="list-group list-scroll">
-
-
-            {msgs}
-        </div>)
+            {messageRows}
+        </div>);
     }
 }
 

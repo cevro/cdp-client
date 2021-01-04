@@ -15,6 +15,7 @@ export default class Layout extends React.Component<OwnProps, {}> {
         const scheme = this.props.scheme;
         return (
             <svg viewBox={scheme.viewBox} style={{width: '100%'}}>
+                <g dangerouslySetInnerHTML={{__html: scheme.background}}/>
 
                 {scheme.objects.sectors.map((sector, id) => {
                     return <Sector key={id} definition={sector}/>;
@@ -23,7 +24,7 @@ export default class Layout extends React.Component<OwnProps, {}> {
                     return <Turnout key={turnoutId} definition={turnoutDef}/>;
                 })}
                 {scheme.objects.signals.map((signal, signalUId) => {
-                    return <Signal key={signalUId} definition={signal}/>;
+                    return <Signal key={signalUId} frontendDefinition={signal}/>;
                 })}
                 <BiDirABs ABs={scheme.objects.biDirAB}/>
 

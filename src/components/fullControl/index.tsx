@@ -1,6 +1,6 @@
 import * as React from 'react';
 import SignalsTable from './signals/';
-import TurnoutsTable from './turnouts/'
+import TurnoutsTable from './turnouts/';
 
 type Tabs = 'signals' | 'turnouts';
 
@@ -9,9 +9,9 @@ interface InnerState {
 }
 
 interface TabItem {
-    id: Tabs,
-    component: React.ComponentClass,
-    label: string,
+    id: Tabs;
+    component: React.ComponentClass;
+    label: string;
 }
 
 export default class Index extends React.Component<{}, InnerState> {
@@ -30,7 +30,7 @@ export default class Index extends React.Component<{}, InnerState> {
             {
                 id: 'turnouts',
                 component: TurnoutsTable,
-                label: 'Points',
+                label: 'Turnouts',
             },
         ];
         return (
@@ -46,7 +46,7 @@ export default class Index extends React.Component<{}, InnerState> {
                                 }}
                             >{value.label}
                             </button>
-                        </li>
+                        </li>;
                     })}
                 </ul>
                 <div className="tab-content">
@@ -54,7 +54,7 @@ export default class Index extends React.Component<{}, InnerState> {
                         return <div key={index}
                                     className={'tab-pane fade ' + (this.state.tab === value.id ? 'show active' : '')}>
                             {React.createElement(value.component)}
-                        </div>
+                        </div>;
                     })}
                 </div>
             </div>

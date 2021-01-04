@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Store } from 'app/reducers';
-import { getTurnoutByUId } from 'app/middleware/objectState';
-import { BackendTurnout} from 'app/consts/interfaces';
+import { BackendTurnout } from 'app/consts/interfaces/turnout';
 import { Action, Dispatch } from 'redux';
 import { FrontendTurnout } from 'app/middleware/frontendTurnout';
 
@@ -11,9 +10,8 @@ interface OwnProps {
 }
 
 interface StateProps {
-    stateObject: BackendTurnout.Snapshot;
+    state: BackendTurnout.Definition;
     displayLabel: boolean;
-
 }
 
 interface DispatchProps {
@@ -23,26 +21,26 @@ interface DispatchProps {
 class Turnout extends React.Component<OwnProps & StateProps & DispatchProps, {}> {
     public render() {
         const {
-            stateObject,
+            state,
             displayLabel,
             definition: {
                 SVGData: {x, y, rotate, dir},
             },
         } = this.props;
-        const position = stateObject ? stateObject.currentPosition : undefined;
-        const requestedState = stateObject ? stateObject.requestedPosition : undefined;
+        const position = state ? state.currentPosition : undefined;
+        const requestedState = state ? state.requestedPosition : undefined;
         return (
             <g className={'point ' + this.getStateClassName(position, false, (requestedState !== position))}
                transform={'translate(' + x + ',' + y + ')'}>
                 {displayLabel && <g transform={'translate(0,-10)'}>
-                    <text>{stateObject.name}</text>
+                    <text>{state.name}</text>
                 </g>}
 
                 <g transform={'rotate(' + rotate + ')'}>
                     <polygon points={'0,-10 10,-10 10,10 0,10'} fill="black"/>
-                    {(!position || (position === stateObject.basePosition)) ?
+                    {(!position || (position === state.basePosition)) ?
                         <line x1={0} x2={10} y1={0} y2={0}/> : null}
-                    {(!position || (position !== stateObject.basePosition)) ?
+                    {(!position || (position !== state.basePosition)) ?
                         <line x1={0} x2={10} y1={0} y2={(dir === 'L') ? (-6) : (6)}/> : null}
 
                 </g>
@@ -67,8 +65,8 @@ class Turnout extends React.Component<OwnProps & StateProps & DispatchProps, {}>
 
 const mapStateToProps = (state: Store, ownProps: OwnProps): StateProps => {
     return {
-        stateObject: getTurnoutByUId(state, ownProps.definition.turnoutUId),
-        displayLabel: state.displayOptions.points,
+        state: state.backendStore.turnouts[ownProps.definition.turnoutUId],
+        displayLabel: state.displayOptions.turnouts,
     };
 };
 

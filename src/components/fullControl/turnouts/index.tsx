@@ -1,25 +1,24 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Store } from 'app/reducers';
-import { MapObjectState } from 'app/reducers/objectState';
 import Row from './row';
-import { ENTITY_TURNOUT } from '@definitions/entity';
-import { BackendTurnout } from 'app/consts/interfaces';
+import { BackendTurnout } from 'app/consts/interfaces/turnout';
+import { MapObjects } from 'app/consts/messages';
 
 interface StateProps {
-    turnoutsState: MapObjectState<BackendTurnout.Snapshot>;
+    states: MapObjects<BackendTurnout.Definition>;
 }
 
 class TurnoutsTable extends React.Component<StateProps, {}> {
     public render() {
-        const {turnoutsState} = this.props;
+        const {states} = this.props;
         const rows = [];
-        for (const turnoutUId in turnoutsState) {
-            if (turnoutsState.hasOwnProperty(turnoutUId)) {
+        for (const turnoutUId in states) {
+            if (states.hasOwnProperty(turnoutUId)) {
                 rows.push(<Row
                     key={turnoutUId}
-                    turnoutState={turnoutsState[turnoutUId]}
-                />)
+                    state={states[turnoutUId]}
+                />);
             }
         }
         return (
@@ -36,7 +35,7 @@ class TurnoutsTable extends React.Component<StateProps, {}> {
 
 const mapStateToProps = (state: Store): StateProps => {
     return {
-        turnoutsState: state.objectState[ENTITY_TURNOUT],
+        states: state.backendStore.turnouts,
     };
 };
 

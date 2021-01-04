@@ -1,5 +1,5 @@
-import { WebSocketStateUpdateMessage } from '@definitions/messages';
 import { Action } from 'redux';
+import { WebSocketStateUpdateMessage } from 'app/consts/messages';
 
 export const ACTION_MESSAGE_RETRIEVE = 'ACTION_MESSAGE_RETRIEVE';
 
@@ -12,7 +12,7 @@ export const onMessageRetrieve = (message: WebSocketStateUpdateMessage): ActionM
         type: ACTION_MESSAGE_RETRIEVE,
         message,
     };
-}
+};
 
 export const ACTION_CONNECTION_CLOSE = 'ACTION_CONNECTION_CLOSE';
 export const connectionClose = (): Action<string> => {

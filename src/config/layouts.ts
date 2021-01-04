@@ -9,7 +9,7 @@ export interface LayoutDefinition {
     name: string;
     background?: string;
     cards: {
-        points: boolean;
+        turnouts: boolean;
         sectors: boolean;
         ABSectors: boolean;
         signals: boolean;

@@ -3,18 +3,17 @@ import { connect } from 'react-redux';
 import { Action, Dispatch } from 'redux';
 import { Store } from '../reducers';
 import { findRoute } from '../actions/routeBuilder';
-import { ENTITY_SIGNAL } from 'app/consts/entity';
-import { BackendSignal } from 'app/consts/interfaces';
-import { MapObjectState } from 'app/reducers/objectState';
+import { BackendSignal } from 'app/consts/interfaces/signal';
+import { MapObjects } from 'app/consts/messages';
 
 interface StateProps {
-    startSignal: number;
-    endSector: number;
-    signals: MapObjectState<BackendSignal.Snapshot>;
+    startSignal: string;
+    endSector: string;
+    signals: MapObjects<BackendSignal.Definition>;
 }
 
 interface DispatchProps {
-    onFindRoute(signalId: number, sectorId: number): void;
+    onFindRoute(signalUId: string, sectorUId: string): void;
 }
 
 class RouteFinder extends React.Component<StateProps & DispatchProps, {}> {
@@ -59,15 +58,15 @@ class RouteFinder extends React.Component<StateProps & DispatchProps, {}> {
 
 const mapDispatchToProps = (dispatch: Dispatch<Action<string>>): DispatchProps => {
     return {
-        onFindRoute: (signalId: number, sectorId: number) => findRoute(dispatch, signalId, sectorId),
+        onFindRoute: (signalUId: string, sectorUId: string) => findRoute(dispatch, signalUId, sectorUId),
     };
 };
 
 const mapStateToProps = (state: Store): StateProps => {
     return {
-        startSignal: state.routeBuilder.startSignalId,
-        endSector: state.routeBuilder.endSectorId,
-        signals: state.objectState[ENTITY_SIGNAL],
+        startSignal: state.routeBuilder.startSignalUId,
+        endSector: state.routeBuilder.endSectorUId,
+        signals: state.backendStore.signals,
     };
 };
 

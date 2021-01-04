@@ -1,16 +1,16 @@
 import * as React from 'react';
-import Card from 'app/components/helpers/Card';
+import Card from '../helpers/card';
 import MessageBox from 'app/components/MessageBox/messageBox';
 import Routes from 'app/components/MessageBox/Routes';
 import ABSectorsPreview from 'app/components/MessageBox/ABSector';
 import RouteBuilderMessageBox from 'app/components/MessageBox/routeBuilderMessageBox';
-import SectorsPreview from 'app/components/MessageBox/sectorsPreview';
-import PointsPreview from 'app/components/MessageBox/pointsPreview';
 import Options from 'app/components/Options/options';
 import ContextMenu from 'app/components/scheme/parts/signals/contextMenu/contextMenu';
 import Layout from 'app/components/scheme/layout/layout';
 import { layouts } from 'app/config/layouts';
 import { RouteComponentProps, withRouter } from 'react-router';
+import SectorRow from 'app/components/scheme/cards/sectorRow';
+import TurnoutRow from 'app/components/scheme/cards/turnoutRow';
 
 interface OwnProps extends RouteComponentProps<{ layout: string }> {
 
@@ -23,7 +23,7 @@ class Scheme extends React.Component<OwnProps, {}> {
             return layout.id === this.props.match.params.layout;
         })[0];
         if (!scheme) {
-            return <p className="alert alert-danger">Layout does not exists.</p>
+            return <p className="alert alert-danger">Layout does not exists.</p>;
         }
         return (
             <>
@@ -63,14 +63,22 @@ class Scheme extends React.Component<OwnProps, {}> {
                         {scheme.cards.sectors &&
                         <div className="col-3">
                             <Card name={'Sectors'}>
-                                <SectorsPreview sectors={scheme.objects.sectors}/>
+                                <div className="list-group list-scroll">
+                                    {scheme.objects.sectors.map((sectorDef, index) => {
+                                        return <SectorRow frontendDef={sectorDef} key={index}/>;
+                                    })}
+                                </div>
                             </Card>
                         </div>
                         }
-                        {scheme.cards.points &&
+                        {scheme.cards.turnouts &&
                         <div className="col-3">
                             <Card name={'Turnouts'}>
-                                <PointsPreview/>
+                                <div className="list-group list-scroll">
+                                    {scheme.objects.turnouts.map((turnoutDef) => {
+                                        return <TurnoutRow frontendDef={turnoutDef} key={turnoutDef.turnoutUId}/>;
+                                    })}
+                                </div>
                             </Card>
                         </div>
                         }
@@ -91,36 +99,4 @@ class Scheme extends React.Component<OwnProps, {}> {
 
 export default withRouter(Scheme);
 // <ABSectors autoBlockSectors={scheme.objects.ABSectors}/>
-// <g className="bg-scheme">
-//                     <polyline points="0,0 2100,0"/>
-//                     <polyline points="0,30 2100,30"/>
-//                     <polyline points="0,60 2000,60"/>
-//
-//                     <polyline points="150,0 200,30"/>
-//                     <polyline points="125,60 175,30"/>
-//                     <polyline points="225,30 275,0"/>
-//                     <polyline points="275,30 325,60"/>
-//
-//                     <polyline points="350,0 400,-30 1575,-30 1625,0"/>
-//                     <polyline points="400,-30 450,-60 1000,-60 1050,-30"/>
-//
-//                     <polyline points="400,30 600,150 1450,150"/>
-//                     <polyline points="500,90 1725,90 1850,210 1900,210"/>
-//                     <polyline points="550,90 600,120 1725,120 1850,240 1900,240"/>
-//
-//                     <polyline points="375,60 725,270 1100,270 1200,210"/>
-//                     <polyline points="575,180 1400,180"/>
-//                     <polyline points="625,210 1350,210 1500,120"/>
-//                     <polyline points="675,210 725,240 1500,240"/>
-//
-//                     <polyline points="1425,0 1475,30"/>
-//                     <polyline points="1500,30 1700,150"/>
-//                     <polyline points="1600,120 1700,60"/>
-//
-//                     <polyline points="1750,60 1800,90"/>
-//
-//                     <polyline points="1775,60 1825,30"/>
-//                     <polyline points="1850,30 1900,0"/>
-//
-//                     <polyline points="1700,30 1650,0"/>
-//                 </g>
+

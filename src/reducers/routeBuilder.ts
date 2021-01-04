@@ -2,69 +2,48 @@ import {
     ACTION_CLEAR_SELECT,
     ACTION_SECTOR_SELECT,
     ACTION_SIGNAL_SELECT,
-    ActionRouteBuilderSelect,
+    ActionRouteBuilderSectorSelect, ActionRouteBuilderSignalSelect,
 } from '../actions/routeBuilder';
 import {
     ACTION_MESSAGE_RETRIEVE,
     ActionMessageRetrieve,
 } from '../actions/webSocets';
-import {TrainRouteDump} from '@definitions/interfaces';
 
 export interface State {
-    startSignalId: number;
-    endSectorId: number;
+    startSignalUId: string;
+    endSectorUId: string;
     availableRoutes: any[];
-    routeBuilderState: TrainRouteDump;
 }
 
 const initState: State = {
-    startSignalId: null,
-    endSectorId: null,
+    startSignalUId: null,
+    endSectorUId: null,
     availableRoutes: [],
-    routeBuilderState: {
-        buffer: [],
-        hasError: false,
-        locked: false,
-    },
 };
 
-const signalSelect = (state: State, action: ActionRouteBuilderSelect): State => {
+const signalSelect = (state: State, action: ActionRouteBuilderSignalSelect): State => {
     return {
         ...state,
-        startSignalId: action.id,
-        endSectorId: null,
+        startSignalUId: action.signalUId,
+        endSectorUId: null,
         availableRoutes: [],
     };
 };
-const sectorSelect = (state: State, action: ActionRouteBuilderSelect): State => {
-    if (state.startSignalId === null) {
+const sectorSelect = (state: State, action: ActionRouteBuilderSectorSelect): State => {
+    if (state.startSignalUId === null) {
         return state;
     }
     return {
         ...state,
-        endSectorId: action.id,
-    }
-};
-
-const registerRoutes = (state: State, action: ActionMessageRetrieve): State => {
-    /*
-    if (action.message.entity === 'route-finder' && action.message.action === 'found') {
-        return {
-            ...state,
-            startSignalId: null,
-            endSectorId: null,
-            availableRoutes: action.message.data.routes,
-        };
-    }*/
-    return state;
-
+        endSectorUId: action.sectorUId,
+    };
 };
 
 const clearSelect = (state: State): State => {
     return {
         ...state,
-        startSignalId: null,
-        endSectorId: null,
+        startSignalUId: null,
+        endSectorUId: null,
         availableRoutes: [],
     };
 };
@@ -76,8 +55,6 @@ export const routeBuilder = (state: State = initState, action): State => {
             return signalSelect(state, action);
         case ACTION_SECTOR_SELECT:
             return sectorSelect(state, action);
-        case ACTION_MESSAGE_RETRIEVE:
-            return registerRoutes(state, action);
         case ACTION_CLEAR_SELECT:
             return clearSelect(state);
         default:

@@ -1,14 +1,12 @@
 import * as React from 'react';
-import {MapObjectState} from 'app/reducers/objectState';
-import {Store} from 'app/reducers';
-import {connect} from 'react-redux';
-import Row from "./row";
-import {ENTITY_AB_SECTOR} from "@definitions/entity";
-import {ABSectorState} from "app/consts/interfaces";
+import { Store } from 'app/reducers';
+import { connect } from 'react-redux';
+import Row from './row';
 import { AutoBlockSectorFrontEndDefinition } from 'app/config/layouts/linePuLpM';
+import { MapObjects } from 'app/consts/messages';
 
 interface StateProps {
-    ABSectorsState: MapObjectState<ABSectorState>;
+    ABSectorsState: MapObjects<any>;
 }
 
 interface OwnProps {
@@ -42,7 +40,7 @@ class Index extends React.Component<StateProps & OwnProps, State> {
                     return <Row key={index}
                                 definition={sectorDef}
                                 displayOnlyInterest={false}
-                                objectState={stateObject}/>
+                                objectState={stateObject}/>;
                 })}
             </div>
         );
@@ -52,7 +50,7 @@ class Index extends React.Component<StateProps & OwnProps, State> {
 
 const mapStateToProps = (state: Store): StateProps => {
     return {
-        ABSectorsState: state.objectState[ENTITY_AB_SECTOR],
+        ABSectorsState: {}, // state.backendStore[ENTITY_AB_SECTOR],
     };
 };
 

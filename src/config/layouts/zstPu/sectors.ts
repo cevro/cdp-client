@@ -445,32 +445,32 @@ const railLT: FrontendSector.LayoutDefinition[] = [
 ];
 const railST: FrontendSector.LayoutDefinition[] = [
     {
-        sectorUId: 'zst.pu.s.1STI',
+        sectorUId: 'zst.pu-lpm.s.1ST-1',
 
         SVGData: {points: ['1900,210 2000,210']},
     },
     {
-        sectorUId: 'zst.pu.s.1STII',
+        sectorUId: 'zst.pu-lpm.s.1ST-2',
 
         SVGData: {points: ['2000,210 2100,210']},
     },
     {
-        sectorUId: 'zst.pu.s.1STIII',
+        sectorUId: 'zst.pu-lpm.s.1ST-3',
 
         SVGData: {points: ['2100,210 2150,210']},
     },
     {
-        sectorUId: 'zst.pu.s.2STI',
+        sectorUId: 'zst.pu-lpm.s.2ST-1',
 
         SVGData: {points: ['1900,240 2000,240']},
     },
     {
-        sectorUId: 'zst.pu.s.2STII',
+        sectorUId: 'zst.pu-lpm.s.2ST-2',
 
         SVGData: {points: ['2000,240 2100,240']},
     },
     {
-        sectorUId: 'zst.pu.s.2STIII',
+        sectorUId: 'zst.pu-lpm.s.2ST-3',
 
         SVGData: {points: ['2100,240 2150,240']},
     },

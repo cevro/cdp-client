@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Icon from './icon';
-import { getSignalByUId } from 'app/middleware/objectState';
 import { connect } from 'react-redux';
 import { Store } from 'app/reducers';
 import {
@@ -8,7 +7,7 @@ import {
     Dispatch,
 } from 'redux';
 import { toggleContextMenu } from 'app/actions/signalContextMenu';
-import { BackendSignal } from 'app/consts/interfaces';
+import { BackendSignal } from 'app/consts/interfaces/signal';
 
 interface OwnProps {
 }
@@ -19,7 +18,7 @@ interface DispatchProps {
 
 interface StateProps {
     signalUId: string | null;
-    stateObject: BackendSignal.Snapshot;
+    state: BackendSignal.Definition;
     coordinates: {
         x: number;
         y: number;
@@ -28,10 +27,8 @@ interface StateProps {
 
 class ContextMenu extends React.Component<OwnProps & StateProps & DispatchProps, {}> {
     public render() {
-        const {stateObject, coordinates, onCloseContext} = this.props;
-        const state = stateObject ? stateObject.displayAspect : undefined;
-
-        if (!stateObject) {
+        const {state, coordinates, onCloseContext} = this.props;
+        if (!state) {
             return null;
         }
         return (
@@ -41,22 +38,20 @@ class ContextMenu extends React.Component<OwnProps & StateProps & DispatchProps,
                      left: coordinates.x,
                      top: coordinates.y,
                  }}>
-                {stateObject ? (<>
-                        <h3 className="card-header">
-                            <span className={'badge signal-badge-' + stateObject.type}>{stateObject.name}</span>
-                            <button type="button" className="close" aria-label="Close" onClick={() => {
-                                onCloseContext();
-                            }}>
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </h3>
-                        <div>
-                            <div className="text-center py-1" style={{maxHeight: '100%'}}>
-                                <Icon state={state} signal={stateObject}/>
-                            </div>
-                        </div>
-                    </>
-                ) : null}
+                <h3 className="card-header">
+                            <span
+                                className={'badge signal-badge-' + state.type}>{state.name}</span>
+                    <button type="button" className="close" aria-label="Close" onClick={() => {
+                        onCloseContext();
+                    }}>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </h3>
+                <div>
+                    <div className="text-center py-1" style={{maxHeight: '100%'}}>
+                        <Icon state={state}/>
+                    </div>
+                </div>
             </div>
         );
     }
@@ -66,13 +61,13 @@ const mapStateToProps = (state: Store): StateProps => {
     return {
         signalUId: state.signalContextMenu.signalUId,
         coordinates: state.signalContextMenu.coordinates,
-        stateObject: getSignalByUId(state, state.signalContextMenu.signalUId),
+        state: state.backendStore.signals[state.signalContextMenu.signalUId],
     };
 };
 const mapDispatchToProps = (dispatch: Dispatch<Action<string>>): DispatchProps => {
     return {
         onCloseContext: () => dispatch(toggleContextMenu(null, null)),
-    }
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContextMenu);

@@ -2,33 +2,28 @@ import {
     Action,
     Dispatch,
 } from 'redux';
-import {
-    ENTITY_BI_DIR_AB,
-    ENTITY_SECTOR,
-    ENTITY_SIGNAL,
-    ENTITY_TURNOUT,
-} from '@definitions/entity';
 import { dispatchFetch } from 'app/fetchApi/netteFetch';
-import { BackendSector, BackendTurnout } from 'app/consts/interfaces';
+import { BackendTurnout } from 'app/consts/interfaces/turnout';
+import { BackendSector } from 'app/consts/interfaces/sector';
 
-export const changeSector = (dispatch: Dispatch<Action<string>>, id: number, state: BackendSector.State) => {
+export const changeSector = (dispatch: Dispatch<Action<string>>, sectorUId: string, state: BackendSector.States) => {
     if (confirm('Rly?')) {
-        return dispatchFetch(ENTITY_SECTOR + '/' + id, dispatch, JSON.stringify({state}));
+        return dispatchFetch('sector/' + sectorUId, dispatch, JSON.stringify({state}));
     }
 };
 
-export const changeSignal = (dispatch: Dispatch<Action<string>>, id: number, aspect: number) => {
+export const changeSignal = (dispatch: Dispatch<Action<string>>, signalUId: string, aspect: number) => {
     if (confirm('Rly?')) {
-        return dispatchFetch(ENTITY_SIGNAL + '/' + id, dispatch, JSON.stringify({aspect}));
+        return dispatchFetch('signal/' + signalUId, dispatch, JSON.stringify({aspect}));
     }
 };
 
-export const changeTurnout = (dispatch: Dispatch<Action<string>>, turnoutId: number, position: BackendTurnout.EndPosition) => {
+export const changeTurnout = (dispatch: Dispatch<Action<string>>, turnoutId: string, position: BackendTurnout.EndPosition) => {
     if (confirm('Rly?')) {
-        return dispatchFetch(ENTITY_TURNOUT + '/' + turnoutId, dispatch, JSON.stringify({position}));
+        return dispatchFetch('turnout/' + turnoutId, dispatch, JSON.stringify({position}));
     }
 };
 
-export const changeABDir = (dispatch: Dispatch<Action<string>>, id: number, dir: -1 | 1) => {
-    return dispatchFetch(ENTITY_BI_DIR_AB + '/' + id, dispatch, JSON.stringify({dir}));
+export const changeABDir = (dispatch: Dispatch<Action<string>>, id: string, dir: -1 | 1) => {
+    return dispatchFetch('bi-block/' + id, dispatch, JSON.stringify({dir}));
 };

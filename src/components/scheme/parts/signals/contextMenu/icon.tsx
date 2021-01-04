@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { BackendSignal } from '@definitions/interfaces';
+import { BackendSignal } from 'app/consts/interfaces/signal';
 import { FrontendSignal } from 'app/middleware/fronendSignal';
 
 interface OwnProps {
-    signal: BackendSignal.Snapshot,
-    state: number;
+    state: BackendSignal.Definition | null;
 }
 
 export default class Icon extends React.Component<OwnProps, {}> {
@@ -12,7 +11,7 @@ export default class Icon extends React.Component<OwnProps, {}> {
     private readonly SVG_HEIGHT = 200;
 
     public render() {
-        const {signal: {type, construction}} = this.props;
+        const {state: {type, construction}} = this.props;
 
         return (<svg viewBox={(-this.SVG_HEIGHT / 2) + ' 0 ' + this.SVG_HEIGHT + ' 400'} height="300">
             <rect x={-this.SVG_HEIGHT / 2} height={400} width={this.SVG_HEIGHT} fill="dodgerblue"/>
@@ -26,11 +25,11 @@ export default class Icon extends React.Component<OwnProps, {}> {
                     {this.getSpec()}
                 </g>
             </g>
-        </svg>)
+        </svg>);
     }
 
     private getSpec(): JSX.Element {
-        const {signal: {spec: {lastAutoBlock}}} = this.props;
+        const {state: {spec: {lastAutoBlock}}} = this.props;
         if (!lastAutoBlock) {
             return null;
         }
@@ -39,13 +38,13 @@ export default class Icon extends React.Component<OwnProps, {}> {
                 <rect x="-15" y="-15" height="30" width="30" fill="white" stroke="black" strokeWidth="1"/>
                 <circle cx={0} cy={0} r={10} strokeWidth={3} fill="white" stroke="black"/>
                 <circle cx={0} cy={0} r={2} strokeWidth={3} fill="black" stroke="black"/>
-            </g>
+            </g>;
         }
         return null;
     }
 
     private getStage(): JSX.Element {
-        const {signal: {construction, type}} = this.props;
+        const {state: {construction, type}} = this.props;
         const shieldHeight = this.getShieldHeight();
         switch (construction) {
             case 'T':
@@ -71,7 +70,7 @@ export default class Icon extends React.Component<OwnProps, {}> {
     }
 
     private getBackground() {
-        const {signal: {construction}} = this.props;
+        const {state: {construction}} = this.props;
         switch (construction) {
             case 'T':
                 return (<>
@@ -125,16 +124,16 @@ export default class Icon extends React.Component<OwnProps, {}> {
     }
 
     private getLabel(): JSX.Element {
-        const {signal: {name}} = this.props;
+        const {state: {name}} = this.props;
         return <g className={'label'} transform={'translate(0,' + (this.getShieldHeight()) + ')'}>
             <rect x="-15" y={0} width="30" height="15"/>
             <text transform="translate(0,10)">{name}</text>
-        </g>
+        </g>;
 
     }
 
     private getShieldHeight(): number {
-        const {signal: {lights, construction}} = this.props;
+        const {state: {lights, construction}} = this.props;
         if (construction === 'T') {
             return (lights.length * 30) + 15;
         }
@@ -142,7 +141,7 @@ export default class Icon extends React.Component<OwnProps, {}> {
     }
 
     private getShield(): JSX.Element {
-        const {signal: {construction, lights}} = this.props;
+        const {state: {construction, lights}} = this.props;
         const height = this.getShieldHeight();
         switch (construction) {
             case 'T':
@@ -162,7 +161,7 @@ export default class Icon extends React.Component<OwnProps, {}> {
                                      y1={(index * 30) + 45}
                                      y2={(index * 30) + 45}
                                      stroke={'#666'}
-                                     strokeWidth={1}/>
+                                     strokeWidth={1}/>;
                     })}</>;
             default:
                 return <>
@@ -189,26 +188,26 @@ export default class Icon extends React.Component<OwnProps, {}> {
                                      y1={(index * 30) + 45}
                                      y2={(index * 30) + 45}
                                      stroke={'#666'}
-                                     strokeWidth={1}/>
-                    })}</>
+                                     strokeWidth={1}/>;
+                    })}</>;
 
         }
     }
 
     private getLights(): JSX.Element {
-        const {signal: {lights}, state} = this.props;
+        const {state: {lights}, state} = this.props;
         return <>{lights.map((value, index) => {
             return <circle
                 key={index}
                 cx="0" cy={(index * 30) + 30}
                 r="10"
                 fill={FrontendSignal.getColorById(value)}
-                className={FrontendSignal.getColorCallBack(value, state)}/>
+                className={FrontendSignal.getColorCallBack(value, state && state.displayedAspect)}/>;
         })}</>;
     }
 
     private getSmallStageLabel(): JSX.Element {
-        const {signal: {type}} = this.props;
+        const {state: {type}} = this.props;
         const width = 10;
         switch (type) {
             case 'entry':

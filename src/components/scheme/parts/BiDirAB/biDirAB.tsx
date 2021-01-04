@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Store } from 'app/reducers';
-import { getBiDirABState } from 'app/middleware/objectState';
-import { ABDir, BiDirABState } from '@definitions/interfaces';
 import { changeABDir } from 'app/actions/messages';
 import {
     Action,
@@ -15,11 +13,11 @@ interface OwnProps {
 }
 
 interface StateProps {
-    stateObject: BiDirABState;
+    stateObject: any;
 }
 
 interface DispatchProps {
-    onChangeDir(id: number, dir: -1 | 1): void;
+    onChangeDir(id: string, dir: -1 | 1): void;
 }
 
 class BiDirAB extends React.Component<OwnProps & StateProps & DispatchProps, {}> {
@@ -35,7 +33,7 @@ class BiDirAB extends React.Component<OwnProps & StateProps & DispatchProps, {}>
                transform={'translate(' + definition.SVDData.x + ',' + definition.SVDData.y + ')'}>
                 <g className={'dir-display ' + this.getDirClassName(definition.mainDir, 'L', dir)}>
                     <rect width={30} height={20} x={-30} y={-10} onClick={() => {
-                        this.props.onChangeDir(definition.locoNetId, (definition.mainDir === 'L') ? 1 : -1);
+                        this.props.onChangeDir(definition.locoNetId.toString(), (definition.mainDir === 'L') ? 1 : -1);
                     }}/>
                     <polyline points="-20,-10 -30,0 -20,10"/>
                     <polyline points="-30,0 0,0"/>
@@ -43,7 +41,7 @@ class BiDirAB extends React.Component<OwnProps & StateProps & DispatchProps, {}>
                 </g>
                 <g className={'dir-display ' + this.getDirClassName(definition.mainDir, 'P', dir)}>
                     <rect width={30} height={20} x={0} y={-10} onClick={() => {
-                        this.props.onChangeDir(definition.locoNetId, (definition.mainDir === 'P') ? 1 : -1);
+                        this.props.onChangeDir(definition.locoNetId.toString(), (definition.mainDir === 'P') ? 1 : -1);
                     }}/>
                     <polyline points="20,-10 30,0 20,10"/>
                     <polyline points="30,0 0,0"/>
@@ -52,9 +50,9 @@ class BiDirAB extends React.Component<OwnProps & StateProps & DispatchProps, {}>
         );
     }
 
-    private getDirClassName(mainDir: 'L' | 'P', arrow: 'L' | 'P', dir: ABDir): string {
+    private getDirClassName(mainDir: 'L' | 'P', arrow: 'L' | 'P', dir: any): string {
         if (dir === undefined || dir === 0) {
-            return 'undefined'
+            return 'undefined';
         }
         if (dir === 1) {
             return (mainDir === arrow) ? 'active' : 'inactive';
@@ -69,7 +67,7 @@ class BiDirAB extends React.Component<OwnProps & StateProps & DispatchProps, {}>
 
 const mapStateToProps = (state: Store, ownProps: OwnProps): StateProps => {
     return {
-        stateObject: getBiDirABState(state, ownProps.definition.locoNetId),
+        stateObject: null,// getBiDirABState(state, ownProps.definition.locoNetId.toString()),
     };
 };
 

@@ -5,32 +5,32 @@ import {
     Dispatch,
 } from 'redux';
 import { changeTurnout } from 'app/actions/messages';
-import { BackendTurnout } from 'app/consts/interfaces';
+import { BackendTurnout } from 'app/consts/interfaces/turnout';
 
 interface DispatchProps {
     onChangeTurnout(state: BackendTurnout.EndPosition): void;
 }
 
 interface OwnProps {
-    turnoutState: BackendTurnout.Snapshot | null;
+    state: BackendTurnout.Definition;
 }
 
 class TurnoutChange extends React.Component<DispatchProps & OwnProps, {}> {
     public render() {
-        const {turnoutState} = this.props;
+        const {state} = this.props;
         const buttons = [];
-        const state = turnoutState ? turnoutState.currentPosition : 0;
-        if (state !== 'D') {
+        const position = state ? state.currentPosition : 0;
+        if (position !== 'D') {
             buttons.push(<button key={'-'} className="btn btn-sm btn-secondary"
                                  onClick={() => {
-                                     this.props.onChangeTurnout('D')
+                                     this.props.onChangeTurnout('D');
                                  }}
             >Set position closed (-)</button>);
         }
-        if (state !== 'S') {
+        if (position !== 'S') {
             buttons.push(<button key={'+'} className="btn btn-sm btn-primary"
                                  onClick={() => {
-                                     this.props.onChangeTurnout('S')
+                                     this.props.onChangeTurnout('S');
                                  }}
             >Set position (+)</button>);
         }
@@ -41,7 +41,7 @@ class TurnoutChange extends React.Component<DispatchProps & OwnProps, {}> {
 
 const mapDispatchToProps = (dispatch: Dispatch<Action<string>>, ownProps: OwnProps): DispatchProps => {
     return {
-        onChangeTurnout: (state: BackendTurnout.EndPosition) => changeTurnout(dispatch, ownProps.turnoutState.turnoutId, state),
+        onChangeTurnout: (state: BackendTurnout.EndPosition) => changeTurnout(dispatch, ownProps.state.turnoutUId, state),
     };
 };
 

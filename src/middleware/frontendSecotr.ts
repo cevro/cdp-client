@@ -1,4 +1,4 @@
-export namespace FrontendSector{
+export namespace FrontendSector {
     export interface LayoutDefinition {
         sectorUId: string;
         SVGData: {
@@ -7,7 +7,6 @@ export namespace FrontendSector{
                 x: number;
                 y: number;
             };
-        }
-
+        };
     }
 }

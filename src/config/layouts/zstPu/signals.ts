@@ -267,25 +267,25 @@ const shiftSignals: FrontendSignal.LayoutDefinition[] = [
 
 ];
 
-const signalAutoblokLM: FrontendSignal.LayoutDefinition[] = [
+const signalAutoBlockLM: FrontendSignal.LayoutDefinition[] = [
     {
-        signalUId: 'ab.pu-lpm.1-15',
+        signalUId: 'ab.pu-lpm.a.1-15',
         SVGData: {rotate: 0, x: 2000, y: 210},
     },
     {
-        signalUId: 'ab.pu-lpm.1-22',
+        signalUId: 'ab.pu-lpm.a.1-22',
         SVGData: {rotate: 180, x: 2100, y: 210},
     },
     {
-        signalUId: 'ab.pu-lpm.2-15',
+        signalUId: 'ab.pu-lpm.a.2-15',
         SVGData: {rotate: 0, x: 2000, y: 240},
     },
     {
-        signalUId: 'ab.pu-lpm.2-22',
+        signalUId: 'ab.pu-lpm.a.2-22',
         SVGData: {rotate: 180, x: 2100, y: 240},
     },
 ];
-const signalAutoblokPB: FrontendSignal.LayoutDefinition[] = [
+const signalAutoBlockPB: FrontendSignal.LayoutDefinition[] = [
     {
         signalUId: 'zst.pu.a.1-1600',
         SVGData: {rotate: 180, x: -100, y: 0},
@@ -311,6 +311,6 @@ export const signals = [
     ...pathSignalsL,
     ...pathSignalsS,
     ...shiftSignals,
-    ...signalAutoblokLM,
-    ...signalAutoblokPB,
-]
+    ...signalAutoBlockLM,
+    ...signalAutoBlockPB,
+];

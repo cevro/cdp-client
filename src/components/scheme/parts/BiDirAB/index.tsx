@@ -10,10 +10,10 @@ export default class BiDirABs extends React.Component<OwnProps, {}> {
 
     public render() {
 
-        return (<>
+        return <>
             {this.props.ABs.map((sector, key) => {
                 return <BiDirAB key={key} definition={sector}/>;
             })}
-        </>)
+        </>;
     }
 }

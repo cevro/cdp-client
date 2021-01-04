@@ -3,28 +3,27 @@ import { connect } from 'react-redux';
 import { signalSelect } from 'app/actions/routeBuilder';
 import { toggleContextMenu } from 'app/actions/signalContextMenu';
 import { Store } from 'app/reducers';
-import { getSignalByUId } from 'app/middleware/objectState';
 import {
     Action,
     Dispatch,
 } from 'redux';
-import { BackendSignal } from 'app/consts/interfaces';
+import { BackendSignal } from 'app/consts/interfaces/signal';
 import './signal.scss';
 import { FrontendSignal } from 'app/middleware/fronendSignal';
 
 interface OwnProps {
-    definition: FrontendSignal.LayoutDefinition;
+    frontendDefinition: FrontendSignal.LayoutDefinition;
 }
 
 interface StateProps {
-    state: BackendSignal.Snapshot;
+    state: BackendSignal.Definition;
     displayLabel: boolean;
 }
 
 interface DispatchProps {
-    onSignalSelect(id: number): void;
+    onSignalSelect(): void;
 
-    onSignalContextMenu(id: string, coordinates: { x: number, y: number }): void;
+    onSignalContextMenu(coordinates: { x: number, y: number }): void;
 }
 
 class Signal extends React.Component<OwnProps & StateProps & DispatchProps, {}> {
@@ -34,22 +33,22 @@ class Signal extends React.Component<OwnProps & StateProps & DispatchProps, {}> 
             onSignalSelect,
             onSignalContextMenu,
             displayLabel,
-            definition: {
+            frontendDefinition: {
                 SVGData: {x, y, rotate},
             },
         } = this.props;
-        const aspect = state ? state.displayAspect : undefined;
+        const aspect = state ? state.displayedAspect : undefined;
         const type = state ? state.type : 'undefined';
         return (
             <g
                 className={'signal signal-type-' + type + ' ' + this.getStateClassName(aspect)}
                 transform={'translate(' + x + ',' + y + ')'}
                 onClick={() => {
-                    onSignalSelect(state.signalId);
+                    onSignalSelect();
                 }}
                 onContextMenu={(event) => {
                     event.preventDefault();
-                    onSignalContextMenu(state.signalUId, {x: event.pageX, y: event.pageY});
+                    onSignalContextMenu({x: event.pageX, y: event.pageY});
                     return false;
                 }}
             >
@@ -107,18 +106,19 @@ class Signal extends React.Component<OwnProps & StateProps & DispatchProps, {}> 
     }
 }
 
-const mapStateToProps = (state: Store, ownProps: OwnProps): StateProps => {
-    const signalState = getSignalByUId(state, ownProps.definition.signalUId);
+const mapStateToProps = (store: Store, ownProps: OwnProps): StateProps => {
+    const state = store.backendStore.signals[ownProps.frontendDefinition.signalUId];
     return {
-        state: signalState,
-        displayLabel: signalState ? !!state.displayOptions.signals[signalState.type] : true,
+        state: state,
+        displayLabel: state ? !!store.displayOptions.signals[state.type] : true,
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<Action<string>>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<Action<string>>, ownProps: OwnProps): DispatchProps => {
     return {
-        onSignalSelect: (id: number) => dispatch(signalSelect(id)),
-        onSignalContextMenu: (id: string, coordinates: { x: number, y: number }) => dispatch(toggleContextMenu(id, coordinates)),
+        onSignalSelect: () => dispatch(signalSelect(ownProps.frontendDefinition.signalUId)),
+        onSignalContextMenu: (coordinates: { x: number, y: number }) =>
+            dispatch(toggleContextMenu(ownProps.frontendDefinition.signalUId, coordinates)),
     };
 };
 

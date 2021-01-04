@@ -26,12 +26,12 @@ class Routes extends React.Component<StateProps & DispatchProps, {}> {
 
         const {availableRoutes, onClearSelect} = this.props;
         return <>
-            {availableRoutes.length ? <RouteBuilder/> : <RouteFinder/>}
+            {true ? <RouteBuilder/> : <RouteFinder/>}
             <button onClick={() => {
-                onClearSelect()
+                onClearSelect();
             }} className="btn btn-warning">Clear
             </button>
-        </>
+        </>;
     }
 }
 

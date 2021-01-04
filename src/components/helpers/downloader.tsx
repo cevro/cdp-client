@@ -4,7 +4,7 @@ import {
     connectionClose,
     onMessageRetrieve,
 } from 'app/actions/webSocets';
-import { WebSocketStateUpdateMessage } from '@definitions/messages';
+import { WebSocketStateUpdateMessage } from 'app/consts/messages';
 import { Dispatch, Action } from 'redux';
 
 interface DispatchProps {

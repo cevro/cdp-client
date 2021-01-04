@@ -1,4 +1,4 @@
-import { BackendSignal } from '@definitions/interfaces';
+import { BackendSignal } from 'app/consts/interfaces/signal';
 
 export namespace FrontendSignal {
 
@@ -30,7 +30,7 @@ export namespace FrontendSignal {
             case 'M':
                 return 'blue';
         }
-    }
+    };
 
     export const getColorCallBack = (type: BackendSignal.Light, state: number): string => {
         const className = 'signal-light ';
@@ -52,7 +52,7 @@ export namespace FrontendSignal {
             case 'X':
                 return className + 'off';
         }
-    }
+    };
 
     export const getYellowTop = (state: number): LightState => {
         switch (state) {
@@ -69,7 +69,7 @@ export namespace FrontendSignal {
             default:
                 return 'off';
         }
-    }
+    };
 
     export const getGreen = (state: number): LightState => {
         switch (state) {
@@ -81,7 +81,7 @@ export namespace FrontendSignal {
             default:
                 return 'off';
         }
-    }
+    };
 
     export const getRed = (state: number): LightState => {
         switch (state) {
@@ -93,7 +93,7 @@ export namespace FrontendSignal {
             default:
                 return 'off';
         }
-    }
+    };
 
     export const getWhite = (state: number): LightState => {
         switch (state) {
@@ -110,7 +110,7 @@ export namespace FrontendSignal {
             default:
                 return 'off';
         }
-    }
+    };
 
     export const getYellowBottom = (state: number): LightState => {
         switch (state) {
@@ -123,7 +123,8 @@ export namespace FrontendSignal {
             default:
                 return 'off';
         }
-    }
+    };
+
     export const signalStateMapping = (state: number): string => {
         switch (state) {
             case 0:

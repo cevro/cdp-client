@@ -1,15 +1,13 @@
 import {
-    ACTION_TOGGLE_POINT_TEXT,
-    ACTION_TOGGLE_SIGNAL_TEXT,
+    ACTION_TOGGLE_SIGNAL_TEXT, ACTION_TOGGLE_TURNOUT_TEXT,
     ToggleSignalAction,
 } from '../actions/displayOptions';
-import { BackendSignal } from 'app/consts/interfaces';
 
 export interface displayOptionsState {
     signals: {
-        [type in BackendSignal.Type]?: boolean;
+        [type in any]?: boolean;
     };
-    points: boolean;
+    turnouts: boolean;
 }
 
 const toggleSignal = (state: displayOptionsState, action: ToggleSignalAction): displayOptionsState => {
@@ -27,16 +25,16 @@ const toggleSignal = (state: displayOptionsState, action: ToggleSignalAction): d
     };
 };
 
-const togglePoints = (state: displayOptionsState): displayOptionsState => {
+const toggleTurnouts = (state: displayOptionsState): displayOptionsState => {
     return {
         ...state,
-        points: !state.points,
+        turnouts: !state.turnouts,
     };
 };
 
 const initialState: displayOptionsState = {
     signals: {},
-    points: false,
+    turnouts: false,
 };
 
 export const displayOptions = (state: displayOptionsState = initialState, action) => {
@@ -44,8 +42,8 @@ export const displayOptions = (state: displayOptionsState = initialState, action
     switch (type) {
         case ACTION_TOGGLE_SIGNAL_TEXT:
             return toggleSignal(state, action);
-        case ACTION_TOGGLE_POINT_TEXT:
-            return togglePoints(state);
+        case ACTION_TOGGLE_TURNOUT_TEXT:
+            return toggleTurnouts(state);
         default:
             return state;
     }

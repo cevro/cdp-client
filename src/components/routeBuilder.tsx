@@ -6,16 +6,17 @@ import {
 } from 'redux';
 import { Store } from '../reducers';
 import { buildRoute } from '../actions/routeBuilder';
-import { BuildOptions } from '@definitions/interfaces';
+import { BackendRouteLock } from 'app/consts/interfaces/routeLock';
+import BuildOptions = BackendRouteLock.BuildOptions;
 
 interface StateProps {
     availableRoutes: any[];
-    startSignal: number;
-    endSector: number;
+    startSignal: string;
+    endSector: string;
 }
 
 interface DispatchProps {
-    onBuildRoute(id: number, buildOptions: BuildOptions): void;
+    onBuildRoute(routeUId: string, buildOptions: BuildOptions): void;
 }
 
 class RouteBuilder extends React.Component<StateProps & DispatchProps, BuildOptions> {
@@ -35,10 +36,10 @@ class RouteBuilder extends React.Component<StateProps & DispatchProps, BuildOpti
 
         return (<div className="list-group">
             {
-                availableRoutes.map((route) => {
+                ['1L-L1', '1L-L3', '3-3a', '3a-BE2', '3a-BE1', '3a-3'].map((route) => {
 
-                    return (<div className="list-group-item">
-                            <h6>{route.name}</h6>
+                    return (<div className="list-group-item" key={route}>
+                            <h6>{route}</h6>
                             <div className="form-check">
                                 <input
                                     checked={this.state.PN}
@@ -82,7 +83,7 @@ class RouteBuilder extends React.Component<StateProps & DispatchProps, BuildOpti
                             </div>
                             <button onClick={() => {
                                 const state = this.state;
-                                onBuildRoute(route.id, {
+                                onBuildRoute(route, {
                                     ...state,
                                 });
                             }} className="col-6 btn btn-success">Build
@@ -98,15 +99,15 @@ class RouteBuilder extends React.Component<StateProps & DispatchProps, BuildOpti
 
 const mapDispatchToProps = (dispatch: Dispatch<Action<string>>): DispatchProps => {
     return {
-        onBuildRoute: (id: number, buildOptions: BuildOptions) => buildRoute(dispatch, id, buildOptions),
+        onBuildRoute: (routeUId: string, buildOptions: BuildOptions) => buildRoute(dispatch, routeUId, buildOptions),
     };
 };
 
 const mapStateToProps = (state: Store): StateProps => {
     return {
         availableRoutes: state.routeBuilder.availableRoutes,
-        startSignal: state.routeBuilder.startSignalId,
-        endSector: state.routeBuilder.endSectorId,
+        startSignal: state.routeBuilder.startSignalUId,
+        endSector: state.routeBuilder.endSectorUId,
     };
 };
 

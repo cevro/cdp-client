@@ -87,6 +87,10 @@
       true,
       "allow-post"
     ],
+    "semicolon": {
+      "severity": "error",
+      "options": "always"
+    },
     "member-ordering": [
       true,
       "public-before-private",

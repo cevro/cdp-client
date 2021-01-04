@@ -1,4 +1,4 @@
-@import "mixins/disconnect";
+$disconnect-color: #80f;
 
 @mixin sector($color) {
   polyline {
@@ -19,15 +19,15 @@
     @include sector(#555);
   }
 
-  &.used {
+  &.occupied {
     @include sector(#f00);
   }
 
-  &.in-train-route {
+  &.locked {
     @include sector(#0f0);
   }
 
-  &.in-movement-route {
+  &.locked-shunt {
     @include sector(#ccc);
   }
 
